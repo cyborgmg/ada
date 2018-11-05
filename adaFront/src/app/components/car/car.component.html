@@ -1,0 +1,156 @@
+<div  style="margin-left: 0%; width: 100%">
+
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">Cadastro de Participantes </h3>
+    </div>
+
+    <form class="form-group" >
+
+      <div [ngClass]="classCss" role="alert" *ngIf="message">
+          <strong>{{ message.text }}</strong>
+      </div>
+
+      <div class="box-body">
+
+        <div class="form-group">
+
+            <p-table [value]="cars" selectionMode="single" [(selection)]="selectedCar" 
+              dataKey="vin" [scrollable]="true" scrollHeight="100px" (onRowUnselect)="onRowUnselect($event)">
+              <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 10%">Vin</th>
+                        <th style="width: 5%">Year</th>
+                        <th>Brand</th>
+                        <th>Color</th>
+                        <th>Price</th>
+                        <th>Date Sale</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-car>
+                    <tr [pSelectableRow]="car">
+                        <td style="width: 10%">{{car.vin}}</td>
+                        <td style="width: 5%">{{car.year}}</td>
+                        <td>{{car.brand}}</td>
+                        <td>{{car.color.name}}</td>
+                        <td>{{car.price}}</td>
+                        <td>{{car.saleDate}}</td>
+                    </tr>
+                </ng-template>
+              <ng-template pTemplate="summary">
+                  <div style="text-align: left">
+                      <!-- Selected Car: {{selectedCar ? selectedCar.vin + ' - ' + selectedCar.brand + ' - ' + selectedCar.year + ' - ' + selectedCar.color?.name: 'none'}} -->
+                  </div>
+              </ng-template>
+          </p-table>
+
+        </div>
+        
+        <div class="form-group col-sm-5">
+            <label for="inputVin" class="control-label">Vin</label>
+            <input type="text" 
+                   disabled=true
+                   class="form-control" 
+                   id="inputVin" 
+                   placeholder="vin"
+                   name="vin"
+                   [(ngModel)]="selectedCar.vin"
+                   #vin="ngModel"
+                   required
+                   pInputText
+                   >
+        </div>
+        
+        <div class="form-group col-sm-5">
+            <label for="inputbrand" class="control-label">Brand</label>
+            <input type="text" 
+                   class="form-control" 
+                   id="inputbrand" 
+                   placeholder="brand"
+                   name="brand"
+                   [(ngModel)]="selectedCar.brand"
+                   #brand="ngModel"
+                   required
+                   pInputText
+                   >
+        </div>
+        
+        <div class="form-group col-sm-3">
+            <label for="inputyear" class="control-label">Year</label>
+            <div class="form-group">
+              <p-spinner 
+                    thousandSeparator="."
+                    id="inputyear" 
+                    placeholder="year"
+                    name="year"
+                    [(ngModel)]="selectedCar.year"
+                    #year="ngModel"
+                    required
+                    size="40"
+                    ></p-spinner>
+            </div>       
+        </div>
+
+        <div class="form-group col-sm-3">
+            <label for="inputcolor" class="control-label">Color</label>
+            <div class="form-group">
+                <p-dropdown 
+                    [options]="colors"
+                    id="inputcolor" 
+                    name="color"
+                    [(ngModel)]="selectedCar.color"
+                    #color="ngModel" 
+                    required
+                    [style]="{'width':'100%'}"
+                ></p-dropdown>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-3">
+            <label for="inputprice" class="control-label">Price</label>
+            <div class="form-group">
+                <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon">$</span>
+                <p-spinner 
+                        thousandSeparator="."
+                        decimalSeparator=","
+                        id="inputprice" 
+                        placeholder="price"
+                        name="price"
+                        [(ngModel)]="selectedCar.price"
+                        #price="ngModel"
+                        required
+                        size="37"
+                        ></p-spinner>
+                </div>        
+            </div>
+        </div>
+
+        <div class="form-group col-sm-3">
+            
+            <label for="inputsaleDate" class="control-label">Sale Date</label>    
+            
+            <app-div-p-calendar uimd='ui-md-10'>
+                <p-calendar
+                        id="inputsaleDate" 
+                        name="saleDate"
+                        [(ngModel)]="selectedCar.saleDate"
+                        #saleDate="ngModel"
+                        required
+                        dateFormat="dd/mm/yy"
+                        showIcon=true
+                        dataType="string"
+                        ></p-calendar>
+            </app-div-p-calendar>   
+             
+        </div>
+
+      </div>
+      
+      <div class="box-footer">
+        <button pButton type="button" label="Save" class="ui-button-raised pull-right" ></button>
+      </div>
+    </form>
+  </div>
+
+</div>
