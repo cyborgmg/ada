@@ -26,6 +26,11 @@ import {InputTextModule} from 'primeng/inputtext';
 import {SpinnerModule} from 'primeng/spinner';
 import {DropdownModule} from 'primeng/dropdown';
 import { DivPCalendarComponent } from './pattern/div-p-calendar/div-p-calendar.component';
+import { NgxCurrencyModule } from 'ngx-currency';
+import localePtBr from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localePtBr);
 
 @NgModule({
   declarations: [
@@ -52,7 +57,8 @@ import { DivPCalendarComponent } from './pattern/div-p-calendar/div-p-calendar.c
     CalendarModule,
     InputTextModule,
     SpinnerModule,
-    DropdownModule
+    DropdownModule,
+    NgxCurrencyModule
   ],
   providers: [
     UserService,

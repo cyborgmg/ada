@@ -33,7 +33,7 @@
                         <td style="width: 5%">{{car.year}}</td>
                         <td>{{car.brand}}</td>
                         <td>{{car.color.name}}</td>
-                        <td>{{car.price}}</td>
+                        <td>{{car.price | currency:'BRL'}}</td>
                         <td>{{car.saleDate}}</td>
                     </tr>
                 </ng-template>
@@ -108,6 +108,24 @@
 
         <div class="form-group col-sm-3">
             <label for="inputprice" class="control-label">Price</label>
+
+            <div class="form-group">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">R$</span>
+                    <input 
+                        currencyMask 
+                        pInputText
+                        class="form-control" 
+                        id="inputprice" 
+                        placeholder="price"
+                        name="price"
+                        [(ngModel)]="selectedCar.price"
+                        #price="ngModel"
+                        required
+                        [options]="{ prefix: '',thousands: '.', decimal: ',' }"/>
+                </div>        
+            </div>
+<!-- 
             <div class="form-group">
                 <div class="ui-inputgroup">
                 <span class="ui-inputgroup-addon">$</span>
@@ -124,6 +142,7 @@
                         ></p-spinner>
                 </div>        
             </div>
+             -->
         </div>
 
         <div class="form-group col-sm-3">
