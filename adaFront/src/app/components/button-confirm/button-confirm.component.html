@@ -1,0 +1,14 @@
+<div>
+
+<button pButton type="button" [label]="label"  [class]="class" [disabled]="disabled" (click)="display=true" ></button>
+
+<p-dialog [header]="title" [(visible)]="display" [modal]="true" [responsive]="true" [width]="200" [minWidth]="200" [minY]="70" 
+[baseZIndex]="10000">
+<span>{{message}}</span>
+<p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="confirmation()" label="Yes"></button>
+    <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+</p-footer>
+</p-dialog> 
+
+</div>

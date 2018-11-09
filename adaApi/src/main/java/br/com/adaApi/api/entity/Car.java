@@ -1,9 +1,25 @@
 package br.com.adaApi.api.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import br.com.adaApi.api.enums.StatusEnum;
 
 
 /**
@@ -18,7 +34,7 @@ public class Car implements Serializable {
 	@Id
 	@SequenceGenerator(name="CAR_ID_GENERATOR", sequenceName="CAR_SQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CAR_ID_GENERATOR")
-	private long id;
+	private Long id;
 
 	private String brand;
 
@@ -28,22 +44,26 @@ public class Car implements Serializable {
 	@Column(name="SALE_DATE")
 	private Date saleDate;
 
-	@Column(name="\"YEAR\"")
-	private String year;
+	@Column(name="ANO")
+	private Long year;
 
 	//bi-directional many-to-one association to Color
 	@ManyToOne
 	@JoinColumn(name="ID_COLOR")
 	private Color color;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="STATUS")
+	private StatusEnum status;
 
 	public Car() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -63,19 +83,19 @@ public class Car implements Serializable {
 		this.price = price;
 	}
 
-	public Date getSaleDate() {
-		return this.saleDate;
+	public String getSaleDate() {
+		return this.saleDate!=null?(new SimpleDateFormat("dd/MM/yyyy")).format(this.saleDate):null;
 	}
 
-	public void setSaleDate(Date saleDate) {
-		this.saleDate = saleDate;
+	public void setSaleDate(String saleDate) {
+		this.saleDate = saleDate!=null?new Date(saleDate):null;
 	}
 
-	public String getYear() {
+	public Long getYear() {
 		return this.year;
 	}
 
-	public void setYear(String year) {
+	public void setYear(Long year) {
 		this.year = year;
 	}
 
@@ -86,5 +106,15 @@ public class Car implements Serializable {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
+	}
+	
+	
 
 }

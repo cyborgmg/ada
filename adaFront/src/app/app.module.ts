@@ -29,6 +29,10 @@ import { DivPCalendarComponent } from './pattern/div-p-calendar/div-p-calendar.c
 import { NgxCurrencyModule } from 'ngx-currency';
 import localePtBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { GetStatusPipe } from './pipes/get-status.pipe';
+import {DialogModule} from 'primeng/dialog';
+import { ButtonConfirmComponent } from './components/button-confirm/button-confirm.component';
+
 
 registerLocaleData(localePtBr);
 
@@ -45,7 +49,9 @@ registerLocaleData(localePtBr);
     CustomPageComponent,
     CadastroParticipantesComponent,
     CarComponent,
-    DivPCalendarComponent
+    DivPCalendarComponent,
+    GetStatusPipe,
+    ButtonConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +64,8 @@ registerLocaleData(localePtBr);
     InputTextModule,
     SpinnerModule,
     DropdownModule,
-    NgxCurrencyModule
+    NgxCurrencyModule,
+    DialogModule
   ],
   providers: [
     UserService,

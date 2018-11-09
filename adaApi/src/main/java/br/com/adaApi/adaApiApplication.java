@@ -1,10 +1,16 @@
 package br.com.adaApi;
 
+import java.text.SimpleDateFormat;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.adaApi.api.entity.User;
 import br.com.adaApi.api.enums.ProfileEnum;

@@ -17,22 +17,28 @@ public class Color implements Serializable {
 	@Id
 	@SequenceGenerator(name="COLOR_ID_GENERATOR", sequenceName="COLOR_SQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="COLOR_ID_GENERATOR")
-	private long id;
+	private Long id;
 
 	private String nome;
 
 	//bi-directional many-to-one association to Car
-	@OneToMany(mappedBy="color")
-	private List<Car> cars;
+	/*@OneToMany(mappedBy="color")
+	private List<Car> cars;*/
 
 	public Color() {
 	}
 
-	public long getId() {
+	public Color(Long id, String nome) {
+		super();
+		this.id = id;
+		this.nome = nome;
+	}
+
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -43,7 +49,7 @@ public class Color implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+/*
 	public List<Car> getCars() {
 		return this.cars;
 	}
@@ -65,5 +71,5 @@ public class Color implements Serializable {
 
 		return car;
 	}
-
+*/
 }

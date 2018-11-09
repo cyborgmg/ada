@@ -2,25 +2,25 @@ package br.com.adaApi.api.enums;
 
 public enum StatusEnum {
 	
-	New,
-	Assigned,
-	Resolved,
-	Approved,
-	Disapproved,
-	Closed;
-	
-	public static StatusEnum getStatus(String status) {
-		
-		switch (status) {
-			case "New": return New;
-			case "Assigned": return Assigned;
-			case "Resolved": return Resolved;
-			case "Approved": return Approved;
-			case "Disapproved": return Disapproved;
-			case "Closed": return Closed;
-			default : return New;
-		}
-		
-	}
+	B("Basic", "B"),
+	S("Simple", "S"),
+	P("Plus", "P");
+
+    private String label;
+
+    private String valor;
+
+    private StatusEnum(final String label, final String valor) {
+        this.label = label;
+        this.valor = valor;
+    }
+
+    public String getLabel() {
+        return this.label;
+    }
+
+    public String getValor() {
+        return this.valor;
+    }
 
 }

@@ -15,26 +15,29 @@
 
         <div class="form-group">
 
-            <p-table [value]="cars" selectionMode="single" [(selection)]="selectedCar" 
-              dataKey="vin" [scrollable]="true" scrollHeight="100px" (onRowUnselect)="onRowUnselect($event)">
+            <p-table [value]="cars" [selectionMode]="selectionMode" [(selection)]="selectedCar" (onRowSelect)="clone()" 
+              dataKey="id" [scrollable]="true" scrollHeight="100px" (onRowUnselect)="onRowUnselect($event)">
               <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 10%">Vin</th>
+                        <th style="width: 10%">Id</th>
                         <th style="width: 5%">Year</th>
                         <th>Brand</th>
                         <th>Color</th>
                         <th>Price</th>
                         <th>Date Sale</th>
+                        <th>Status</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-car>
-                    <tr [pSelectableRow]="car">
-                        <td style="width: 10%">{{car.vin}}</td>
+                    <tr [pSelectableRow]="car" >
+                        <td style="width: 10%">{{car.id}}</td>
                         <td style="width: 5%">{{car.year}}</td>
                         <td>{{car.brand}}</td>
-                        <td>{{car.color.name}}</td>
+                        <td>{{car.color.nome}}</td>
                         <td>{{car.price | currency:'BRL'}}</td>
-                        <td>{{car.saleDate}}</td>
+                        <td>{{car.saleDate | date:'dd/MM/yyyy'}}</td>
+                        <!-- <td>{{listsService.getStatus(car.status)}}</td> -->
+                        <td>{{ car.status | getStatus }}</td>
                     </tr>
                 </ng-template>
               <ng-template pTemplate="summary">
@@ -46,15 +49,15 @@
 
         </div>
         
-        <div class="form-group col-sm-5">
-            <label for="inputVin" class="control-label">Vin</label>
+        <div class="form-group col-sm-3">
+            <label for="inputid" class="control-label">Id</label>
             <input type="text" 
                    disabled=true
                    class="form-control" 
-                   id="inputVin" 
-                   placeholder="vin"
-                   name="vin"
-                   [(ngModel)]="selectedCar.vin"
+                   id="inputid" 
+                   placeholder="id"
+                   name="id"
+                   [(ngModel)]="currentCar.id"
                    #vin="ngModel"
                    required
                    pInputText
@@ -68,25 +71,43 @@
                    id="inputbrand" 
                    placeholder="brand"
                    name="brand"
-                   [(ngModel)]="selectedCar.brand"
+                   [(ngModel)]="currentCar.brand"
                    #brand="ngModel"
                    required
                    pInputText
+                   (input)="navigate()"
                    >
+        </div>
+
+        <div class="form-group col-sm-3">
+            <label for="inputstatus" class="control-label">Status</label>
+            <div class="form-group">
+                <p-dropdown 
+                    [options]="listsService.status"
+                    id="inputstatus" 
+                    name="status"
+                    [(ngModel)]="currentCar.status"
+                    #status="ngModel" 
+                    required
+                    [style]="{'width':'100%'}"
+                    (onChange)="navigate()"
+                ></p-dropdown>
+            </div>
         </div>
         
         <div class="form-group col-sm-3">
             <label for="inputyear" class="control-label">Year</label>
             <div class="form-group">
               <p-spinner 
-                    thousandSeparator="."
+                    thousandSeparator=""
                     id="inputyear" 
                     placeholder="year"
                     name="year"
-                    [(ngModel)]="selectedCar.year"
+                    [(ngModel)]="currentCar.year"
                     #year="ngModel"
                     required
                     size="40"
+                    (input)="navigate()"
                     ></p-spinner>
             </div>       
         </div>
@@ -95,13 +116,14 @@
             <label for="inputcolor" class="control-label">Color</label>
             <div class="form-group">
                 <p-dropdown 
-                    [options]="colors"
+                    [options]="listsService.colors"
                     id="inputcolor" 
                     name="color"
-                    [(ngModel)]="selectedCar.color"
+                    [(ngModel)]="currentCar.color"
                     #color="ngModel" 
                     required
                     [style]="{'width':'100%'}"
+                    (onChange)="navigate()"
                 ></p-dropdown>
             </div>
         </div>
@@ -113,36 +135,20 @@
                 <div class="ui-inputgroup">
                     <span class="ui-inputgroup-addon">R$</span>
                     <input 
-                        currencyMask 
                         pInputText
+                        currencyMask                         
+                        [options]="{ prefix: '',thousands: '.', decimal: ',' }"
                         class="form-control" 
                         id="inputprice" 
                         placeholder="price"
                         name="price"
-                        [(ngModel)]="selectedCar.price"
+                        [(ngModel)]="currentCar.price"
                         #price="ngModel"
                         required
-                        [options]="{ prefix: '',thousands: '.', decimal: ',' }"/>
+                        (keydown)="navigate()"
+                        />
                 </div>        
             </div>
-<!-- 
-            <div class="form-group">
-                <div class="ui-inputgroup">
-                <span class="ui-inputgroup-addon">$</span>
-                <p-spinner 
-                        thousandSeparator="."
-                        decimalSeparator=","
-                        id="inputprice" 
-                        placeholder="price"
-                        name="price"
-                        [(ngModel)]="selectedCar.price"
-                        #price="ngModel"
-                        required
-                        size="37"
-                        ></p-spinner>
-                </div>        
-            </div>
-             -->
         </div>
 
         <div class="form-group col-sm-3">
@@ -153,12 +159,15 @@
                 <p-calendar
                         id="inputsaleDate" 
                         name="saleDate"
-                        [(ngModel)]="selectedCar.saleDate"
+                        [(ngModel)]="currentCar.saleDate"
                         #saleDate="ngModel"
                         required
                         dateFormat="dd/mm/yy"
                         showIcon=true
                         dataType="string"
+                        placeholder="sale date"
+                        (onInput)="navigate()"
+                        (onSelect)="navigate()"
                         ></p-calendar>
             </app-div-p-calendar>   
              
@@ -167,9 +176,56 @@
       </div>
       
       <div class="box-footer">
-        <button pButton type="button" label="Save" class="ui-button-raised pull-right" ></button>
+        
+        <!-- <button pButton type="button" label="Save" class="ui-button-rounded pull-right" [disabled]="btnSalvar" ></button> -->
+
+        <app-button-confirm 
+                label="Save" 
+                class="ui-button-rounded pull-right" 
+                [disabled]="btnSalvar" 
+                title="Save" 
+                message="Deseja realmente salvar este registro" 
+                ></app-button-confirm>
+
+        <span class="pull-right">&nbsp;</span>
+
+        <app-button-confirm 
+                label="Cancel" 
+                class="ui-button-rounded pull-right" 
+                [disabled]="btnCancelar" 
+                title="Cancel" 
+                message="Deseja realmente cancelar este registro" 
+                (confiormClick)="clone()" 
+                ></app-button-confirm>
+
+        <span class="pull-right">&nbsp;</span>
+
+        <app-button-confirm 
+                label="New" 
+                class="ui-button-rounded pull-right" 
+                [disabled]="btnNovo" 
+                title="New" 
+                message="Deseja realmente incluir um novo registro?" 
+                ></app-button-confirm>
+
+        <!-- <button pButton type="button" label="New" class="ui-button-rounded pull-right" [disabled]="btnNovo" ></button> -->
+        <span class="pull-right">&nbsp;</span>
+
+        <app-button-confirm 
+                label="Delete" 
+                class="ui-button-rounded pull-right" 
+                [disabled]="btnDeletar" 
+                title="Delete" 
+                message="Deseja realmente excluir este registro?" 
+                ></app-button-confirm>
+
+        <!-- <button pButton type="button" label="Delete" class="ui-button-rounded pull-right" [disabled]="btnDeletar" ></button> -->
+        
+        <button pButton type="button" label="Find" (click)="findCarParams()" class="ui-button-rounded pull-left" ></button>  
+         
       </div>
     </form>
+
   </div>
 
 </div>
