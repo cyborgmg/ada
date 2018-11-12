@@ -2,7 +2,7 @@
 
   <div class="box box-info">
     <div class="box-header with-border">
-      <h3 class="box-title">Cadastro de Participantes </h3>
+      <h3 class="box-title">Car Registration </h3>
     </div>
 
     <form class="form-group" >
@@ -35,7 +35,7 @@
                         <td>{{car.brand}}</td>
                         <td>{{car.color.nome}}</td>
                         <td>{{car.price | currency:'BRL'}}</td>
-                        <td>{{car.saleDate | date:'dd/MM/yyyy'}}</td>
+                        <td>{{car.saleDate}}</td>
                         <td>{{ car.status | getStatus }}</td>
                     </tr>
                 </ng-template>

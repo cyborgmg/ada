@@ -6,7 +6,6 @@ import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { AuthGuard } from './components/security/auth.guard';
 import { UserNewComponent } from './components/user-new/user-new.component';
 import { CustomPageComponent } from './components/custom-page/custom-page.component';
-import { CadastroParticipantesComponent } from './components/cadastro-participantes/cadastro-participantes.component';
 import { CarComponent } from './components/car/car.component';
 
 export const ROUTES: Routes = [
@@ -16,8 +15,7 @@ export const ROUTES: Routes = [
     {path: 'user-new/:id', component: UserNewComponent, canActivate: [AuthGuard]},
     {path: 'user-list', component: UserListComponent, canActivate: [AuthGuard]},
     {path: 'custom-page', component: CustomPageComponent, canActivate: [AuthGuard]},
-    {path: 'car', component: CarComponent, canActivate: [AuthGuard]},
-    {path: 'cadastro-participantes', component: CadastroParticipantesComponent, canActivate: [AuthGuard]}
+    {path: 'car', component: CarComponent, canActivate: [AuthGuard]}
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(ROUTES);

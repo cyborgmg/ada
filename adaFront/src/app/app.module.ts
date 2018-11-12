@@ -17,7 +17,6 @@ import { UserNewComponent } from './components/user-new/user-new.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { DialogService } from './services/dialog.service';
 import { CustomPageComponent } from './components/custom-page/custom-page.component';
-import { CadastroParticipantesComponent } from './components/cadastro-participantes/cadastro-participantes.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TableModule } from 'primeng/table';
 import { CarComponent } from './components/car/car.component';
@@ -47,7 +46,6 @@ registerLocaleData(localePtBr);
     UserNewComponent,
     UserListComponent,
     CustomPageComponent,
-    CadastroParticipantesComponent,
     CarComponent,
     DivPCalendarComponent,
     GetStatusPipe,

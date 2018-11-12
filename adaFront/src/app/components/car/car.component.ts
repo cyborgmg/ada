@@ -35,7 +35,7 @@ export class CarComponent implements OnInit {
   findCarParams() {
     this.carService.findCarParams(this.currentCar).subscribe((responseApi: ResponseApi) => {
       this.cars = responseApi['data'];
-      this.selectedCar = this.cars[0];
+      this.selectedCar = this.cars.length > 0 ? this.cars[0] : Car.instance;
       this.clone();
     }, err => {
       this.showMessage({
