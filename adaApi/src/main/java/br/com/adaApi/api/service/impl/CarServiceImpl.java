@@ -35,5 +35,23 @@ public class CarServiceImpl implements CarService {
 		// TODO Auto-generated method stub
 		return carRepository.findAll();
 	}
+	
+	@Override
+	public Car createOrUpdate(Car car) {
+		// TODO Auto-generated method stub
+		return carRepository.save(car);
+	}
+	
+	@Override
+	public Car findById(Long id) {
+		// TODO Auto-generated method stub
+		return carRepository.findById(id).get();
+	}
+	
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		carRepository.deleteById(id);
+	}
 
 }

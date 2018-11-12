@@ -30,9 +30,9 @@ import br.com.adaApi.api.enums.StatusEnum;
 @NamedQuery(name="Car.findAll", query="SELECT c FROM Car c")
 public class Car implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-	@SequenceGenerator(name="CAR_ID_GENERATOR", sequenceName="CAR_SQ")
+	@SequenceGenerator(name="CAR_ID_GENERATOR", sequenceName="CAR_SQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CAR_ID_GENERATOR")
 	private Long id;
 

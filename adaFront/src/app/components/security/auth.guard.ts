@@ -2,7 +2,6 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
-import { CurrentUser } from '../../model/current-user.model';
 import { UserService } from '../../services/user.service';
 
 @Injectable()

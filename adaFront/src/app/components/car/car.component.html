@@ -15,7 +15,7 @@
 
         <div class="form-group">
 
-            <p-table [value]="cars" [selectionMode]="selectionMode" [(selection)]="selectedCar" (onRowSelect)="clone()" 
+            <p-table #ptable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="clone()" 
               dataKey="id" [scrollable]="true" scrollHeight="100px" (onRowUnselect)="onRowUnselect($event)">
               <ng-template pTemplate="header">
                     <tr>
@@ -176,8 +176,6 @@
       </div>
       
       <div class="box-footer">
-        
-        <!-- <button pButton type="button" label="Save" class="ui-button-rounded pull-right" [disabled]="btnSalvar" ></button> -->
 
         <app-button-confirm 
                 label="Save" 
@@ -185,6 +183,7 @@
                 [disabled]="btnSalvar" 
                 title="Save" 
                 message="Deseja realmente salvar este registro" 
+                (confiormClick)="saveCar()"
                 ></app-button-confirm>
 
         <span class="pull-right">&nbsp;</span>
@@ -206,9 +205,9 @@
                 [disabled]="btnNovo" 
                 title="New" 
                 message="Deseja realmente incluir um novo registro?" 
+                (confiormClick)="novo()"
                 ></app-button-confirm>
 
-        <!-- <button pButton type="button" label="New" class="ui-button-rounded pull-right" [disabled]="btnNovo" ></button> -->
         <span class="pull-right">&nbsp;</span>
 
         <app-button-confirm 
@@ -217,11 +216,12 @@
                 [disabled]="btnDeletar" 
                 title="Delete" 
                 message="Deseja realmente excluir este registro?" 
+                (confiormClick)="deleteCar()"
                 ></app-button-confirm>
-
-        <!-- <button pButton type="button" label="Delete" class="ui-button-rounded pull-right" [disabled]="btnDeletar" ></button> -->
         
-        <button pButton type="button" label="Find" (click)="findCarParams()" class="ui-button-rounded pull-left" ></button>  
+        <button pButton type="button" label="Find" (click)="findCarParams()" class="ui-button-rounded pull-left" ></button> 
+        <button pButton type="button" label="Clear" (click)="clear()" class="ui-button-rounded pull-left" ></button>
+        <button pButton type="button" label="Print" (click)="printCars()" class="ui-button-rounded pull-left" ></button>  
          
       </div>
     </form>

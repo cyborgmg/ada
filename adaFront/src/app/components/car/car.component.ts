@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {Car} from '../../model/car';
 import {CarService} from '../../services/car.service';
 import { ListsService } from '../../services/lists.service';
 import { ResponseApi } from '../../model/response-api';
-
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-car',
@@ -12,14 +12,14 @@ import { ResponseApi } from '../../model/response-api';
 })
 export class CarComponent implements OnInit {
 
-  cars: Car[];
+  @ViewChild('ptable') ptable: Table;
+
+  cars: Array<Car> = new Array<Car>(); // Car[];
   selectedCar: Car = Car.instance;
   currentCar: Car = Car.instance;
   message: {};
   classCss: {};
 
-  // tslint:disable-next-line:no-inferrable-types
-  selectionMode: string = 'single';
   btnSalvar: boolean;
   btnCancelar: boolean;
   btnNovo: boolean;
@@ -45,6 +45,54 @@ export class CarComponent implements OnInit {
     });
   }
 
+  saveCar() {
+    this.carService.saveCar(this.currentCar).subscribe((responseApi: ResponseApi) => {
+      this.selectedCar = responseApi['data'];
+      this.cars = new Array<Car>();
+      this.cars.push(this.selectedCar);
+      this.clone();
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }
+
+  deleteCar() {
+    this.carService.deleteCar(this.currentCar.id).subscribe((responseApi: ResponseApi) => {
+
+      let idx = 0;
+      this.cars.forEach((element: Car) => {
+        if (element.id === this.currentCar.id ) {
+          this.cars.splice(idx, 1);
+        }
+        idx++;
+      });
+      this.selectedCar = this.cars[0];
+      this.clone();
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }
+
+  printCars() {
+
+    this.carService.printCars(this.cars).subscribe(data => {
+
+      const blob = new Blob([(<any>data)], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+
+    }, err => {
+      console.log(`err=${err}`);
+    });
+
+  }
+
   private showMessage(message: {type: string, text: string}): void {
     this.message = message;
     this.buildClasses(message.type);
@@ -62,6 +110,7 @@ export class CarComponent implements OnInit {
 
   onRowUnselect(event) {
     this.selectedCar = JSON.parse(JSON.stringify( this.currentCar ));
+    this.navigate();
   }
 
   clone() {
@@ -69,17 +118,26 @@ export class CarComponent implements OnInit {
     this.navigate();
   }
 
+  novo() {
+    this.selectedCar = Car.instance;
+    this.cars.push(this.selectedCar);
+    this.clone();
+  }
+
   navigate () {
 
     const enable: boolean = (JSON.stringify(this.currentCar) === JSON.stringify(this.selectedCar));
     const empty: boolean = (this.selectedCar.id != null);
 
-    this.selectionMode = enable ? 'single' : 'none';
-
+    this.ptable.selectionMode = enable ? 'single' : 'none';
     this.btnSalvar   = enable;
     this.btnCancelar = enable;
     this.btnNovo     = !enable;
     this.btnDeletar  = !(empty && enable);
+  }
+
+  clear() {
+    this.currentCar = Car.instance;
   }
 
 }

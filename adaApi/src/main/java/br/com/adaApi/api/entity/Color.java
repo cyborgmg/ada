@@ -15,7 +15,7 @@ public class Color implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="COLOR_ID_GENERATOR", sequenceName="COLOR_SQ")
+	@SequenceGenerator(name="COLOR_ID_GENERATOR", sequenceName="COLOR_SQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="COLOR_ID_GENERATOR")
 	private Long id;
 
