@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1ea23558-0cd5-ba1b-5b9e-d6404a74d802",
+		"_postman_id": "99a70292-9985-4652-bbae-6d67711ba819",
 		"name": "adaApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -112,7 +112,10 @@
 						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTMwNTM5NTYwMzkzLCJleHAiOjE1MzExNDQzNjB9.OUOozZNcYJx0jo_eHqiFUF_fnOQTD-6wIgCz1tpkt1qZHtMiu5TaAhtYURQfa1oPjIMR_zksHXeWtLa8_ccGPw"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8080/api/user/5b3a32dc7c7a6d3a71c9cdc6",
 					"protocol": "http",
@@ -143,7 +146,10 @@
 						"value": "application/x-www-form-urlencoded"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8080/api/user/5b3a32dc7c7a6d3a71c9cdc6",
 					"protocol": "http",
@@ -161,6 +167,40 @@
 			"response": []
 		},
 		{
+			"name": "deleteCar",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQxNzYzMzQ0NTY0LCJleHAiOjE1NDIzNjgxNDR9.7kM5zijzcioGBvw1dGLETRon1qvQv-_rQif6VSVSHr3Z7mS2FZIgEz4OELK0zkijJU71PfrnLwWZas-6vKYJ_w"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/car/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"car",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "get user findall",
 			"request": {
 				"method": "GET",
@@ -170,7 +210,10 @@
 						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQwOTk3NTk0OTU4LCJleHAiOjE1NDE2MDIzOTR9.uLge2bHGI27ZxMrkxu0acQQltUPZLItpETmsO9zh_oUWHfOAxUMRQ9UfRF0bcXJVgbQQN_AfG5fZF6QOfmsqUQ"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8080/api/user/0/10",
 					"protocol": "http",
@@ -193,7 +236,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8080/api/getuser/eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQxMDQwMzMxNDAyLCJleHAiOjE1NDE2NDUxMzF9.069kjsrxaIa_dX3tItMIZads8mEL_4_m366t4T7-CI92BTyhAVbhob5B0ro35pANd6lrqRvu27vxIVU0W0tpBA",
 					"protocol": "http",
@@ -205,6 +251,153 @@
 						"api",
 						"getuser",
 						"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQxMDQwMzMxNDAyLCJleHAiOjE1NDE2NDUxMzF9.069kjsrxaIa_dX3tItMIZads8mEL_4_m366t4T7-CI92BTyhAVbhob5B0ro35pANd6lrqRvu27vxIVU0W0tpBA"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllCars",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQxNjE1NjE5NzIxLCJleHAiOjE1NDIyMjA0MTl9.l0n6QD8eZ4gX2S0w9IAST1DIFXxlcmj0DYjXlnS9Q2ZTt0BkHSU7rg8NjgjT2DmXE3Q3j6zAftFDDF3bTkCQTw"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/car",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"car"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findParamsCar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQxNzY0Mjk5MDM5LCJleHAiOjE1NDIzNjkwOTl9.Qjy6hE-iJR5WLAWnUL2awhQekS_5GOkUH1pTCt57ns7djW8jV756KfgARMQkAD5DUq6U9zaDubyIjrEGnbvLMA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n    \"brand\": \"VW\",\n    \"price\": 10000,\n    \"saleDate\": \"01/01/2018\",\n    \"year\": 2012,\n    \"color\": {\n        \"id\": 1,\n        \"nome\": \"Orange\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/car/find",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"car",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveCar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQxNzYzMzQ0NTY0LCJleHAiOjE1NDIzNjgxNDR9.7kM5zijzcioGBvw1dGLETRon1qvQv-_rQif6VSVSHr3Z7mS2FZIgEz4OELK0zkijJU71PfrnLwWZas-6vKYJ_w"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 13,\n    \"brand\": \"NISSAN\",\n    \"price\": 20000,\n    \"saleDate\": \"30/01/2018\",\n    \"year\": 2000,\n    \"color\": {\n        \"id\": 1,\n        \"nome\": \"Orange\"\n    },\n    \"status\": \"S\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/car",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"car"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllDropDownColor",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQxNjU0OTQ0NzI4LCJleHAiOjE1NDIyNTk3NDR9.yT0P9-od03aXWPgu6XMjwdYjM7c4t60mCOSEf9bnr8gT5MIRcmRKztvNgerRqjg82Bh5FBhuiDN2n3MXNIBFNQ"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/color/dropdown",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"color",
+						"dropdown"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "printCarsPDF",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQxOTI1MzE0OTYyLCJleHAiOjE1NDI1MzAxMTR9.f3G8kQtCgGuUu7naDb8fENpy34c09R6Pcc1zhOFdzn3sH-UgXil9v4DzQF2IAmShua9WUN9fcjrVptTTaYC95g"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/car/print",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"car",
+						"print"
 					]
 				}
 			},

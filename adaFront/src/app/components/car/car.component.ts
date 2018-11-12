@@ -88,7 +88,10 @@ export class CarComponent implements OnInit {
       window.open(url);
 
     }, err => {
-      console.log(`err=${err}`);
+      this.showMessage({
+        type: 'error',
+        text: err
+      });
     });
 
   }

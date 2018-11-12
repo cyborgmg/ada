@@ -36,7 +36,6 @@
                         <td>{{car.color.nome}}</td>
                         <td>{{car.price | currency:'BRL'}}</td>
                         <td>{{car.saleDate | date:'dd/MM/yyyy'}}</td>
-                        <!-- <td>{{listsService.getStatus(car.status)}}</td> -->
                         <td>{{ car.status | getStatus }}</td>
                     </tr>
                 </ng-template>

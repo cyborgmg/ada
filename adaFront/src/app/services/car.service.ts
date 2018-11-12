@@ -25,28 +25,6 @@ export class CarService {
 
   printCars(data: any) {
     return HttpRespPdfReqJsonService.post(`${URL_API}/api/car/print`, data);
-    /*
-    return  Observable.create(observer => {
-              const xhr = new XMLHttpRequest();
-              xhr.open('POST', `${URL_API}/api/car/print`, true);
-              xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
-              xhr.setRequestHeader('Content-type', 'application/json');
-              xhr.responseType = 'blob';
-              xhr.onreadystatechange = () => {
-                  if (xhr.readyState === 4) {
-                      if (xhr.status === 200) {
-                          const contentType = 'application/pdf';
-                          const blob = new Blob([xhr.response], { type: contentType });
-                          observer.next(blob);
-                          observer.complete();
-                      } else {
-                          observer.error(xhr.response);
-                      }
-                  }
-              };
-              xhr.send(JSON.stringify(entity));
-            });
-    */
   }
 
 }
