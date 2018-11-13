@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.user).subscribe((userAuthentication: CurrentUser) => {
         this.shared.token = userAuthentication.token;
         this.shared.user = userAuthentication.user;
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
         window.location.reload();
-        this.shared.showTemplate.emit(true);
+        // this.shared.showTemplate.emit(true);
     }, err => {
         this.shared.token = null;
         this.shared.user = null;
