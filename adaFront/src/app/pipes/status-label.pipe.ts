@@ -1,11 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ListsService } from '../services/lists.service';
-import { ColorService } from '../services/color.service';
 
 @Pipe({
-  name: 'getStatus'
+  name: 'statusLabel'
 })
-export class GetStatusPipe implements PipeTransform {
+export class StatusLabelPipe implements PipeTransform {
 
   constructor(private listsService: ListsService) { }
 
@@ -23,5 +22,4 @@ export class GetStatusPipe implements PipeTransform {
 
     return result;
   }
-
 }

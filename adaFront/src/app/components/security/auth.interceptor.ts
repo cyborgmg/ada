@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
             auhtRequest = req.clone({
                 setHeaders: {
-                    'Authorization' : localStorage.getItem('token')
+                    'Authorization' : this.shared.token
                 }
             });
             return next.handle(auhtRequest);

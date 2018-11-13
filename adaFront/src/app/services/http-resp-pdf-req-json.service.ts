@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SharedService } from './shared.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpRespPdfReqJsonService {
 
-  constructor() { }
-
   public static post (url: string, data: any) {
 
     return  Observable.create(observer => {
       const xhr = new XMLHttpRequest();
       xhr.open('POST', url, true);
-      xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+      xhr.setRequestHeader('Authorization', SharedService.getInstance().token );
       xhr.setRequestHeader('Content-type', 'application/json');
       xhr.responseType = 'blob';
       xhr.onreadystatechange = () => {

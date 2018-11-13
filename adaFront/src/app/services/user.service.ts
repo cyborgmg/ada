@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../model/user.model';
 import { URL_API } from './url.api';
+import { SharedService } from './shared.service';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class UserService {
   }
 
   getUser() {
-    return this.http.get(`${URL_API}/api/getuser/${localStorage.getItem('token')}`);
+    return this.http.get(`${URL_API}/api/getuser/${SharedService.getInstance().token}`);
   }
 
 }

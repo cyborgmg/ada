@@ -24,6 +24,7 @@ export class CarComponent implements OnInit {
   btnCancelar: boolean;
   btnNovo: boolean;
   btnDeletar: boolean;
+  btnPrint: boolean;
 
   constructor(private carService: CarService, private listsService: ListsService) {
   }
@@ -137,6 +138,7 @@ export class CarComponent implements OnInit {
     this.btnCancelar = enable;
     this.btnNovo     = !enable;
     this.btnDeletar  = !(empty && enable);
+    this.btnPrint    = !empty;
   }
 
   clear() {

@@ -2,6 +2,7 @@ package br.com.adaApi.api.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -87,8 +88,8 @@ public class Car implements Serializable {
 		return this.saleDate!=null?(new SimpleDateFormat("dd/MM/yyyy")).format(this.saleDate):null;
 	}
 
-	public void setSaleDate(String saleDate) {
-		this.saleDate = saleDate!=null?new Date(saleDate):null;
+	public void setSaleDate(String saleDate) throws ParseException {
+		this.saleDate = saleDate!=null?(new SimpleDateFormat("dd/MM/yyyy")).parse(saleDate):null;
 	}
 
 	public Long getYear() {

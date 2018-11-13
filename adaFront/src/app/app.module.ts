@@ -1,7 +1,7 @@
 import { AuthGuard } from './components/security/auth.guard';
 import { AuthInterceptor } from './components/security/auth.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -28,10 +28,11 @@ import { DivPCalendarComponent } from './pattern/div-p-calendar/div-p-calendar.c
 import { NgxCurrencyModule } from 'ngx-currency';
 import localePtBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
-import { GetStatusPipe } from './pipes/get-status.pipe';
 import {DialogModule} from 'primeng/dialog';
 import { ButtonConfirmComponent } from './components/button-confirm/button-confirm.component';
-
+import {PanelMenuModule} from 'primeng/panelmenu';
+import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
+import { StatusLabelPipe } from './pipes/status-label.pipe';
 
 registerLocaleData(localePtBr);
 
@@ -48,8 +49,9 @@ registerLocaleData(localePtBr);
     CustomPageComponent,
     CarComponent,
     DivPCalendarComponent,
-    GetStatusPipe,
-    ButtonConfirmComponent
+    ButtonConfirmComponent,
+    CurrencyFormatPipe,
+    StatusLabelPipe
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ registerLocaleData(localePtBr);
     SpinnerModule,
     DropdownModule,
     NgxCurrencyModule,
-    DialogModule
+    DialogModule,
+    PanelMenuModule
   ],
   providers: [
     UserService,

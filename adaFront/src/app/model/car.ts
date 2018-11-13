@@ -12,7 +12,6 @@ export class Car {
       public price: number,
       public saleDate: Date,
       public status: string
-  ) {
+  ) {}
 
-  }
 }

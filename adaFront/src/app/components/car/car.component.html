@@ -2,7 +2,7 @@
 
   <div class="box box-info">
     <div class="box-header with-border">
-      <h3 class="box-title">Car Registration </h3>
+      <h3 class="box-title">Car Registration</h3>
     </div>
 
     <form class="form-group" >
@@ -34,9 +34,9 @@
                         <td style="width: 5%">{{car.year}}</td>
                         <td>{{car.brand}}</td>
                         <td>{{car.color.nome}}</td>
-                        <td>{{car.price | currency:'BRL'}}</td>
+                        <td>{{car.price | currencyFormat:'BRL'}}</td>
                         <td>{{car.saleDate}}</td>
-                        <td>{{ car.status | getStatus }}</td>
+                        <td>{{ car.status | statusLabel }}</td>
                     </tr>
                 </ng-template>
               <ng-template pTemplate="summary">
@@ -220,7 +220,7 @@
         
         <button pButton type="button" label="Find" (click)="findCarParams()" class="ui-button-rounded pull-left" ></button> 
         <button pButton type="button" label="Clear" (click)="clear()" class="ui-button-rounded pull-left" ></button>
-        <button pButton type="button" label="Print" (click)="printCars()" class="ui-button-rounded pull-left" ></button>  
+        <button pButton type="button" label="Print" (click)="printCars()" [disabled]="btnPrint" class="ui-button-rounded pull-left" ></button>  
          
       </div>
     </form>

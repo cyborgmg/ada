@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   }
 
   singOut(): void {
-    localStorage.removeItem('token');
+    this.share.token = null;
     this.share.user = null;
     window.location.href = '/login';
     window.location.reload();

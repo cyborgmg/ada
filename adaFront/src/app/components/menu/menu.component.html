@@ -1,5 +1,8 @@
 <aside class="main-sidebar">
+
+
   <section class="sidebar">
+<!--       
     <ul class="sidebar-menu" data-widget="tree">
 
       <li class="treeview" *ngIf="share.user.profile == 'ADMIN'">
@@ -40,6 +43,10 @@
       </ul>
    </li>
 
-    </ul>
+    </ul> 
+  -->
+
+    <p-panelMenu [model]="items" [multiple]="false" [style]="{'width':'100%'}"></p-panelMenu>
+
   </section>
 </aside>

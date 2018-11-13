@@ -27,15 +27,13 @@ export class LoginComponent implements OnInit {
   login() {
     this.message = '';
     this.userService.login(this.user).subscribe((userAuthentication: CurrentUser) => {
-        localStorage.setItem('token', userAuthentication.token);
-        // this.shared.token = userAuthentication.token;
+        this.shared.token = userAuthentication.token;
         this.shared.user = userAuthentication.user;
-        this.shared.user.profile = userAuthentication.user.profile.substring(5);
-        this.shared.showTemplate.emit(true);
         this.router.navigate(['/']);
+        window.location.reload();
+        this.shared.showTemplate.emit(true);
     }, err => {
-        // this.shared.token = null;
-        localStorage.removeItem('token');
+        this.shared.token = null;
         this.shared.user = null;
         this.shared.showTemplate.emit(false);
         this.message = 'Erro';
