@@ -1,0 +1,49 @@
+<aside class="main-sidebar">
+
+
+  <section class="sidebar">
+
+    <ul class="sidebar-menu" data-widget="tree">
+
+      <li class="treeview" *ngIf="share.user.profile == 'ADMIN'">
+      <a href="#">
+        <i class="fa fa-edit"></i> <span>User</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        <li><a [routerLink]="['/user-list']"><i class="fa fa-circle-o"></i> List</a></li>
+        <li><a [routerLink]="['/user-new']"><i class="fa fa-circle-o"></i> New User</a></li>
+      </ul>
+      </li>
+      
+      <li class="treeview" *ngIf="share.user.profile == 'ADMIN' || share.user.profile == 'CUSTUMER' ">
+        <a href="#">
+          <i class="fa fa-edit"></i> <span>Custumer</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a [routerLink]="['/custom-page']"><i class="fa fa-circle-o"></i> Show</a></li>
+        </ul>
+     </li>
+
+     <li class="treeview" *ngIf="share.user.profile == 'ADMIN' || share.user.profile == 'CUSTUMER' ">
+      <a href="#">
+        <i class="fa fa-edit"></i> <span>Cadastros</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+          <li><a [routerLink]="['/car']"><i class="fa fa-circle-o"></i> Car(Base desenvolv)</a></li>
+        <li><a [routerLink]="['/cadastro-participantes']"><i class="fa fa-circle-o"></i> Participantes</a></li>
+      </ul>
+   </li>
+
+    </ul> 
+
+  </section>
+</aside>

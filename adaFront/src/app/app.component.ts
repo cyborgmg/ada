@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SharedService } from './services/shared.service';
 import { CurrentUser } from './model/current-user.model';
 import { UserService } from './services/user.service';
 import { Router } from '@angular/router';
-import { MenuComponent } from './components/menu/menu.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @Component({
@@ -13,18 +13,15 @@ import { MenuComponent } from './components/menu/menu.component';
 })
 export class AppComponent  implements OnInit {
 
-  @ViewChild('menu') menu: MenuComponent;
   showTemplate = false;
-  public shared: SharedService;
+  public shared: SharedService = SharedService.getInstance();
 
   constructor(private userService: UserService, private router: Router) {
-    this.shared = SharedService.getInstance();
 
-    if ( this.shared.token != null ) {
+    if ( this.shared.isLoggedIn() ) {
       this.userService.getUser().subscribe((userAuthentication: CurrentUser) => {
         this.shared.user = userAuthentication.user;
         this.shared.showTemplate.emit(true);
-        this.menu.populateItems();
         this.router.navigate(['/']);
       }, err => {
         console.log(err);
@@ -38,8 +35,9 @@ export class AppComponent  implements OnInit {
 
   ngOnInit(): void {
 
-    this.shared.showTemplate.subscribe(
-       show => this.showTemplate = show
+    this.shared.showTemplate.subscribe((show: boolean) => {
+        this.showTemplate = show;
+      }
     );
 
   }
@@ -51,3 +49,4 @@ export class AppComponent  implements OnInit {
   }
 
 }
+

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  user = new User('', '', '', '');
+  user = User.instance;
   shared: SharedService;
   message: string;
 
@@ -29,9 +29,8 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.user).subscribe((userAuthentication: CurrentUser) => {
         this.shared.token = userAuthentication.token;
         this.shared.user = userAuthentication.user;
-        // this.router.navigate(['/']);
-        window.location.reload();
-        // this.shared.showTemplate.emit(true);
+        this.shared.showTemplate.emit(true);
+        this.router.navigate(['/']);
     }, err => {
         this.shared.token = null;
         this.shared.user = null;
@@ -42,7 +41,7 @@ export class LoginComponent implements OnInit {
 
   cancelLogin() {
     this.message = '';
-    this.user = new User('', '', '', '');
+    this.user = User.instance;
     window.location.href = '/login';
     window.location.reload();
   }

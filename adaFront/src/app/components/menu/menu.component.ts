@@ -1,5 +1,5 @@
 import { SharedService } from './../../services/shared.service';
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/api';
 
 @Component({
@@ -7,23 +7,29 @@ import {MenuItem} from 'primeng/api';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements AfterViewInit {
+export class MenuComponent implements OnInit {
 
-    share: SharedService = SharedService.getInstance();
+    shared: SharedService = SharedService.getInstance();
 
     private items: Array<MenuItem> = new Array<MenuItem>();
 
     constructor() {
     }
 
-    ngAfterViewInit() {
+    ngOnInit() {
+        this.shared.showTemplate.subscribe((show: boolean) => {
+            if (show) {
+                this.populateItems();
+            }
+          }
+        );
     }
 
-    public populateItems() {
+    populateItems() {
 
-         this.items = new Array<MenuItem>();
+        this.items = new Array<MenuItem>();
 
-        if (this.share.user.profile === 'ADMIN') {
+        if (this.shared.user.profile === 'ADMIN') {
             this.items.push({
                 label: 'User',
                 icon: 'pi pi-pw pi-users',
@@ -33,7 +39,8 @@ export class MenuComponent implements AfterViewInit {
                 ]
             });
         }
-        if (this.share.user.profile === 'ADMIN' || this.share.user.profile === 'CUSTUMER' || this.share.user.profile === 'TECHNICIAN') {
+        // tslint:disable-next-line:max-line-length
+        if (this.shared.user.profile === 'ADMIN' || this.shared.user.profile === 'CUSTUMER' || this.shared.user.profile === 'TECHNICIAN') {
             this.items.push({
                 label: 'Cadastro',
                 icon: 'pi pi-fw pi-folder-open',
@@ -43,7 +50,6 @@ export class MenuComponent implements AfterViewInit {
                 ]
             });
         }
-
     }
 
 }

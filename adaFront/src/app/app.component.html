@@ -1,12 +1,10 @@
+
 <app-header [hidden]="!showTemplate" ></app-header>
 
-<app-menu #menu [hidden]="!showTemplate"  ></app-menu>
+<app-menu [hidden]="!showTemplate"  ></app-menu>
 
-<div [ngClass]="showContentWarpper()">
-        
-        <section class="content-header">
 
-        </section>
+<div class="content-wrapper" style="margin-left: 12%;">    
 
         <section class="content">
             <router-outlet></router-outlet>
@@ -14,5 +12,4 @@
 
 </div>
 
-
-<app-footer [hidden]="!showTemplate"></app-footer>
+<app-footer [hidden]="!showTemplate"></app-footer> 
