@@ -5,7 +5,7 @@
       <h3 class="box-title">Car Registration</h3>
     </div>
 
-    <form class="form-group" >
+    <form class="form-group" #form="ngForm">
 
       <div [ngClass]="classCss" role="alert" *ngIf="message">
           <strong>{{ message.text }}</strong>
@@ -25,7 +25,7 @@
                         <th>Color</th>
                         <th>Price</th>
                         <th>Date Sale</th>
-                        <th>Status</th>
+                        <th>Status</th> 
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-car>
@@ -33,10 +33,10 @@
                         <td style="width: 10%">{{car.id}}</td>
                         <td style="width: 5%">{{car.year}}</td>
                         <td>{{car.brand}}</td>
-                        <td>{{car.color.nome}}</td>
+                        <td>{{car.color?.nome}}</td>
                         <td>{{car.price | currencyFormat:'BRL'}}</td>
                         <td>{{car.saleDate}}</td>
-                        <td>{{ car.status | statusLabel }}</td>
+                        <td>{{ car.status | statusLabel }}</td> 
                     </tr>
                 </ng-template>
               <ng-template pTemplate="summary">
@@ -57,13 +57,12 @@
                    placeholder="id"
                    name="id"
                    [(ngModel)]="currentCar.id"
-                   #vin="ngModel"
-                   required
+                   #id="ngModel"
                    pInputText
                    >
         </div>
-        
-        <div class="form-group col-sm-5">
+
+        <div class="form-group col-sm-5" [ngClass]="getFormGroupClass(brand.invalid,brand.dirty)">
             <label for="inputbrand" class="control-label">Brand</label>
             <input type="text" 
                    class="form-control" 
@@ -87,7 +86,6 @@
                     name="status"
                     [(ngModel)]="currentCar.status"
                     #status="ngModel" 
-                    required
                     [style]="{'width':'100%'}"
                     (onChange)="navigate()"
                 ></p-dropdown>
@@ -104,7 +102,6 @@
                     name="year"
                     [(ngModel)]="currentCar.year"
                     #year="ngModel"
-                    required
                     size="40"
                     (input)="navigate()"
                     ></p-spinner>
@@ -120,7 +117,6 @@
                     name="color"
                     [(ngModel)]="currentCar.color"
                     #color="ngModel" 
-                    required
                     [style]="{'width':'100%'}"
                     (onChange)="navigate()"
                 ></p-dropdown>
@@ -143,7 +139,6 @@
                         name="price"
                         [(ngModel)]="currentCar.price"
                         #price="ngModel"
-                        required
                         (keydown)="navigate()"
                         />
                 </div>        
@@ -160,7 +155,6 @@
                         name="saleDate"
                         [(ngModel)]="currentCar.saleDate"
                         #saleDate="ngModel"
-                        required
                         dateFormat="dd/mm/yy"
                         showIcon=true
                         dataType="string"
@@ -170,7 +164,7 @@
                         ></p-calendar>
             </app-div-p-calendar>   
              
-        </div>
+        </div> 
 
       </div>
       
@@ -179,7 +173,7 @@
         <app-button-confirm 
                 label="Save" 
                 class="ui-button-rounded pull-right" 
-                [disabled]="btnSalvar" 
+                [disabled]=" !form.valid && btnSalvar" 
                 title="Save" 
                 message="Deseja realmente salvar este registro" 
                 (confiormClick)="saveCar()"

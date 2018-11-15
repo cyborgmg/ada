@@ -31,7 +31,7 @@ public class ColorServiceImpl implements ColorService {
 		
 		List<Color> colors = colorRepository.findAll();
 		
-		dropDownColors.add( new DropDown<Color>("Select Color",new Color(null,null)) );
+		dropDownColors.add( new DropDown<Color>("Select Color",null) );
 		for (Color color : colors) {
 			dropDownColors.add( new DropDown<Color>(color.getNome(),color) );
 		}

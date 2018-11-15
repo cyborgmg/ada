@@ -4,6 +4,7 @@ import {CarService} from '../../services/car.service';
 import { ListsService } from '../../services/lists.service';
 import { ResponseApi } from '../../model/response-api';
 import { Table } from 'primeng/table';
+import { Utils } from 'src/app/utils';
 
 @Component({
   selector: 'app-car',
@@ -14,11 +15,11 @@ export class CarComponent implements OnInit {
 
   @ViewChild('ptable') ptable: Table;
 
-  cars: Array<Car> = new Array<Car>(); // Car[];
+  cars: Array<Car> = new Array<Car>();
   selectedCar: Car = Car.instance;
   currentCar: Car = Car.instance;
-  message: {};
-  classCss: {};
+  message: any;
+  classCss: any;
 
   btnSalvar: boolean;
   btnCancelar: boolean;
@@ -30,7 +31,7 @@ export class CarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.navigate ();
+   this.navigate ();
   }
 
   findCarParams() {
@@ -97,6 +98,14 @@ export class CarComponent implements OnInit {
 
   }
 
+  getFormGroupClass(isInvalid: boolean, isDirty): any {
+    return {
+      'form-group': true,
+      'has-error': isInvalid && isDirty,
+      'has-success': isInvalid && isDirty
+    };
+  }
+
   private showMessage(message: {type: string, text: string}): void {
     this.message = message;
     this.buildClasses(message.type);
@@ -134,7 +143,7 @@ export class CarComponent implements OnInit {
     const empty: boolean = (this.selectedCar.id != null);
 
     this.ptable.selectionMode = enable ? 'single' : 'none';
-    this.btnSalvar   = enable;
+    this.btnSalvar   = ( enable &&  Utils.strIsEmpty(this.selectedCar.brand) );
     this.btnCancelar = enable;
     this.btnNovo     = !enable;
     this.btnDeletar  = !(empty && enable);

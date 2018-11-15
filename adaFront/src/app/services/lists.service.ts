@@ -9,7 +9,7 @@ import { Color } from '../model/color';
 })
 export class ListsService {
 
-  colors: DropDown<Color>[];
+  colors: Array<DropDown<Color>>;
 
   public status = [
     {label: 'Select Status', value: null},

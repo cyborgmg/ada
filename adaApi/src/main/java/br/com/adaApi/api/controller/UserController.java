@@ -66,7 +66,7 @@ public class UserController {
 			result.addError(new ObjectError("User", "Email no information"));
 		}
 	}
-	
+	/*
 	@PutMapping
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<Response<User>> update(HttpServletRequest request, @RequestBody User user,
@@ -98,7 +98,7 @@ public class UserController {
 			result.addError(new ObjectError("User", "Email no information"));
 		}
 	}
-	
+	*/
 	@GetMapping(value="{id}")
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<Response<User>> findById(@PathVariable("id") String id){

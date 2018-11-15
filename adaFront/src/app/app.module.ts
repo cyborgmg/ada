@@ -33,6 +33,7 @@ import { ButtonConfirmComponent } from './components/button-confirm/button-confi
 import {PanelMenuModule} from 'primeng/panelmenu';
 import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
 import { StatusLabelPipe } from './pipes/status-label.pipe';
+import { CadastroUsuarioComponent } from './components/cadastro-usuario/cadastro-usuario.component';
 
 registerLocaleData(localePtBr);
 
@@ -51,7 +52,8 @@ registerLocaleData(localePtBr);
     DivPCalendarComponent,
     ButtonConfirmComponent,
     CurrencyFormatPipe,
-    StatusLabelPipe
+    StatusLabelPipe,
+    CadastroUsuarioComponent
   ],
   imports: [
     BrowserModule,

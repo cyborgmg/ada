@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../model/user.model';
 import { CurrentUser } from '../../../model/current-user.model';
-import {SharedService} from '../../../services/shared.service';
+import { SharedService } from '../../../services/shared.service';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 
@@ -25,18 +25,19 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.message = '';
-    this.userService.login(this.user).subscribe((userAuthentication: CurrentUser) => {
-        this.shared.token = userAuthentication.token;
-        this.shared.user = userAuthentication.user;
-        this.shared.showTemplate.emit(true);
-        this.router.navigate(['/']);
-    }, err => {
-        this.shared.token = null;
-        this.shared.user = null;
-        this.shared.showTemplate.emit(false);
-        this.message = 'Erro';
-    });
+
+      this.message = '';
+      this.userService.login(this.user).subscribe((userAuthentication: CurrentUser) => {
+          this.shared.token = userAuthentication.token;
+          this.shared.user = userAuthentication.user;
+          window.location.reload();
+      }, err => {
+          this.shared.token = null;
+          this.shared.user = null;
+          this.shared.showTemplate.emit(false);
+          this.message = 'Erro';
+      });
+
   }
 
   cancelLogin() {
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit {
     window.location.reload();
   }
 
-  getFormGroupClass(isInvalid: boolean, isDirty): {} {
+  getFormGroupClass(isInvalid: boolean, isDirty): any {
     return {
       'form-group': true,
       'has-error': isInvalid && isDirty,

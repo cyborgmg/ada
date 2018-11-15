@@ -42,11 +42,5 @@ export class AppComponent  implements OnInit {
 
   }
 
-  showContentWarpper() {
-    return {
-      'content-wrapper': this.shared.isLoggedIn()
-    };
-  }
-
 }
 
