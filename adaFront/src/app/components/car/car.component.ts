@@ -5,40 +5,45 @@ import { ListsService } from '../../services/lists.service';
 import { ResponseApi } from '../../model/response-api';
 import { Table } from 'primeng/table';
 import { Utils } from 'src/app/utils';
+import { BaseCadastro } from 'src/app/pattern/base-cadastro';
 
 @Component({
   selector: 'app-car',
   templateUrl: './car.component.html',
   styleUrls: ['./car.component.css']
 })
-export class CarComponent implements OnInit {
+export class CarComponent extends BaseCadastro implements OnInit {
 
   @ViewChild('ptable') ptable: Table;
 
   cars: Array<Car> = new Array<Car>();
   selectedCar: Car = Car.instance;
-  currentCar: Car = Car.instance;
-  message: any;
-  classCss: any;
+  oldSelectedCar: Car = Car.instance;
 
   btnSalvar: boolean;
   btnCancelar: boolean;
   btnNovo: boolean;
+  // tslint:disable-next-line:no-inferrable-types
+  clickNovo: boolean = true;
   btnDeletar: boolean;
   btnPrint: boolean;
+  btnClean: boolean;
+  btnFind: boolean;
 
   constructor(private carService: CarService, private listsService: ListsService) {
+    super();
   }
 
   ngOnInit() {
-   this.navigate ();
+   this.navigate();
   }
 
   findCarParams() {
-    this.carService.findCarParams(this.currentCar).subscribe((responseApi: ResponseApi) => {
+    this.carService.findCarParams(this.selectedCar).subscribe((responseApi: ResponseApi) => {
       this.cars = responseApi['data'];
       this.selectedCar = this.cars.length > 0 ? this.cars[0] : Car.instance;
       this.clone();
+      this.navigate();
     }, err => {
       this.showMessage({
         type: 'error',
@@ -48,11 +53,13 @@ export class CarComponent implements OnInit {
   }
 
   saveCar() {
-    this.carService.saveCar(this.currentCar).subscribe((responseApi: ResponseApi) => {
+    this.carService.saveCar(this.selectedCar).subscribe((responseApi: ResponseApi) => {
       this.selectedCar = responseApi['data'];
       this.cars = new Array<Car>();
       this.cars.push(this.selectedCar);
+      this.clickNovo = true;
       this.clone();
+      this.navigate();
     }, err => {
       this.showMessage({
         type: 'error',
@@ -62,17 +69,11 @@ export class CarComponent implements OnInit {
   }
 
   deleteCar() {
-    this.carService.deleteCar(this.currentCar.id).subscribe((responseApi: ResponseApi) => {
-
-      let idx = 0;
-      this.cars.forEach((element: Car) => {
-        if (element.id === this.currentCar.id ) {
-          this.cars.splice(idx, 1);
-        }
-        idx++;
-      });
-      this.selectedCar = this.cars[0];
+     this.carService.deleteCar(this.selectedCar.id).subscribe((responseApi: ResponseApi) => {
+      Utils.arrayRemoveItem(this.cars, this.selectedCar, 'id');
+      this.selectedCar = this.cars.length > 0 ? this.cars[0] : Car.instance;
       this.clone();
+      this.navigate();
     }, err => {
       this.showMessage({
         type: 'error',
@@ -98,60 +99,59 @@ export class CarComponent implements OnInit {
 
   }
 
-  getFormGroupClass(isInvalid: boolean, isDirty): any {
-    return {
-      'form-group': true,
-      'has-error': isInvalid && isDirty,
-      'has-success': isInvalid && isDirty
-    };
-  }
-
-  private showMessage(message: {type: string, text: string}): void {
-    this.message = message;
-    this.buildClasses(message.type);
-    setTimeout(() => {
-      this.message = undefined;
-    }, 3000);
-  }
-
-  private buildClasses(type: string) {
-    this.classCss = {
-      'alert': true
-    };
-    this.classCss['alert-' + type] = true;
-  }
-
   onRowUnselect(event) {
-    this.selectedCar = JSON.parse(JSON.stringify( this.currentCar ));
+    this.selectedCar = JSON.parse(JSON.stringify( this.oldSelectedCar ));
     this.navigate();
   }
 
   clone() {
-    this.currentCar = JSON.parse(JSON.stringify( this.selectedCar ));
-    this.navigate();
+    this.oldSelectedCar = JSON.parse(JSON.stringify( this.selectedCar ));
   }
 
   novo() {
     this.selectedCar = Car.instance;
     this.cars.push(this.selectedCar);
+    this.clickNovo = false;
     this.clone();
+    this.navigate();
+  }
+
+  cancel() {
+    if (this.selectedCar.id === null) {
+      Utils.arrayRemoveItem(this.cars, this.selectedCar, 'id');
+      this.selectedCar = this.cars.length > 0 ? this.cars[0] : Car.instance;
+      this.clickNovo = true;
+    }
+    this.selectedCar = this.oldSelectedCar;
+    Utils.arraySetItem(this.cars, this.selectedCar, 'id');
+    this.navigate();
   }
 
   navigate () {
 
-    const enable: boolean = (JSON.stringify(this.currentCar) === JSON.stringify(this.selectedCar));
-    const empty: boolean = (this.selectedCar.id != null);
+    const edit: boolean = (JSON.stringify(this.oldSelectedCar) !== JSON.stringify(this.selectedCar));
+    const idIsNull: boolean = (this.selectedCar.id === null);
+    const full: boolean = (this.cars.length > 0);
+    const required: boolean = !Utils.strIsEmpty(this.selectedCar.brand);
 
-    this.ptable.selectionMode = enable ? 'single' : 'none';
-    this.btnSalvar   = ( enable &&  Utils.strIsEmpty(this.selectedCar.brand) );
-    this.btnCancelar = enable;
-    this.btnNovo     = !enable;
-    this.btnDeletar  = !(empty && enable);
-    this.btnPrint    = !empty;
+    this.btnSalvar   = full && edit && required;
+    this.btnCancelar = full && ( !this.clickNovo || edit );
+    this.btnNovo     = this.clickNovo && !edit;
+    this.btnDeletar  = full && !idIsNull && !edit;
+    this.btnPrint    = full && !this.btnCancelar;
+    this.btnClean    = !this.btnCancelar;
+    this.btnFind     = !this.btnCancelar;
+
+    // console.log(`this.cars.length=${this.cars.length}`);
+    // console.log(`this.selectedCar.id=${this.selectedCar.id}`);
+    // console.log(`this.selectedCar=${JSON.stringify(this.selectedCar)}`);
+    // console.log(`this.oldSelectedCar=${JSON.stringify(this.oldSelectedCar)}`);
+    // console.log(`===============================================================================================`);
+
   }
 
   clear() {
-    this.currentCar = Car.instance;
+    this.selectedCar = Car.instance;
   }
 
 }

@@ -16,7 +16,6 @@ import { FormsModule } from '@angular/forms';
 import { UserNewComponent } from './components/user-new/user-new.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { DialogService } from './services/dialog.service';
-import { CustomPageComponent } from './components/custom-page/custom-page.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TableModule } from 'primeng/table';
 import { CarComponent } from './components/car/car.component';
@@ -29,7 +28,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import localePtBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import {DialogModule} from 'primeng/dialog';
-import { ButtonConfirmComponent } from './components/button-confirm/button-confirm.component';
+import { ButtonConfirmComponent } from './pattern/button-confirm/button-confirm.component';
 import {PanelMenuModule} from 'primeng/panelmenu';
 import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
 import { StatusLabelPipe } from './pipes/status-label.pipe';
@@ -47,7 +46,6 @@ registerLocaleData(localePtBr);
     HomeComponent,
     UserNewComponent,
     UserListComponent,
-    CustomPageComponent,
     CarComponent,
     DivPCalendarComponent,
     ButtonConfirmComponent,

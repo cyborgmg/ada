@@ -56,7 +56,7 @@
                    id="inputid" 
                    placeholder="id"
                    name="id"
-                   [(ngModel)]="currentCar.id"
+                   [(ngModel)]="selectedCar.id"
                    #id="ngModel"
                    pInputText
                    >
@@ -69,11 +69,11 @@
                    id="inputbrand" 
                    placeholder="brand"
                    name="brand"
-                   [(ngModel)]="currentCar.brand"
+                   [(ngModel)]="selectedCar.brand"
                    #brand="ngModel"
                    required
                    pInputText
-                   (input)="navigate()"
+                   (keyup)="navigate()"
                    >
         </div>
 
@@ -84,7 +84,7 @@
                     [options]="listsService.status"
                     id="inputstatus" 
                     name="status"
-                    [(ngModel)]="currentCar.status"
+                    [(ngModel)]="selectedCar.status"
                     #status="ngModel" 
                     [style]="{'width':'100%'}"
                     (onChange)="navigate()"
@@ -100,10 +100,10 @@
                     id="inputyear" 
                     placeholder="year"
                     name="year"
-                    [(ngModel)]="currentCar.year"
+                    [(ngModel)]="selectedCar.year"
                     #year="ngModel"
                     size="40"
-                    (input)="navigate()"
+                    (keyup)="navigate()"
                     ></p-spinner>
             </div>       
         </div>
@@ -115,7 +115,7 @@
                     [options]="listsService.colors"
                     id="inputcolor" 
                     name="color"
-                    [(ngModel)]="currentCar.color"
+                    [(ngModel)]="selectedCar.color"
                     #color="ngModel" 
                     [style]="{'width':'100%'}"
                     (onChange)="navigate()"
@@ -137,9 +137,9 @@
                         id="inputprice" 
                         placeholder="price"
                         name="price"
-                        [(ngModel)]="currentCar.price"
+                        [(ngModel)]="selectedCar.price"
                         #price="ngModel"
-                        (keydown)="navigate()"
+                        (keyup)="navigate()"
                         />
                 </div>        
             </div>
@@ -153,7 +153,7 @@
                 <p-calendar
                         id="inputsaleDate" 
                         name="saleDate"
-                        [(ngModel)]="currentCar.saleDate"
+                        [(ngModel)]="selectedCar.saleDate"
                         #saleDate="ngModel"
                         dateFormat="dd/mm/yy"
                         showIcon=true
@@ -173,7 +173,7 @@
         <app-button-confirm 
                 label="Save" 
                 class="ui-button-rounded pull-right" 
-                [disabled]=" !form.valid && btnSalvar" 
+                [disabled]="!btnSalvar" 
                 title="Save" 
                 message="Deseja realmente salvar este registro" 
                 (confiormClick)="saveCar()"
@@ -184,10 +184,10 @@
         <app-button-confirm 
                 label="Cancel" 
                 class="ui-button-rounded pull-right" 
-                [disabled]="btnCancelar" 
+                [disabled]="!btnCancelar" 
                 title="Cancel" 
                 message="Deseja realmente cancelar este registro" 
-                (confiormClick)="clone()" 
+                (confiormClick)="cancel()" 
                 ></app-button-confirm>
 
         <span class="pull-right">&nbsp;</span>
@@ -195,7 +195,7 @@
         <app-button-confirm 
                 label="New" 
                 class="ui-button-rounded pull-right" 
-                [disabled]="btnNovo" 
+                [disabled]="!btnNovo" 
                 title="New" 
                 message="Deseja realmente incluir um novo registro?" 
                 (confiormClick)="novo()"
@@ -206,15 +206,15 @@
         <app-button-confirm 
                 label="Delete" 
                 class="ui-button-rounded pull-right" 
-                [disabled]="btnDeletar" 
+                [disabled]="!btnDeletar" 
                 title="Delete" 
                 message="Deseja realmente excluir este registro?" 
                 (confiormClick)="deleteCar()"
                 ></app-button-confirm>
         
-        <button pButton type="button" label="Find" (click)="findCarParams()" class="ui-button-rounded pull-left" ></button> 
-        <button pButton type="button" label="Clear" (click)="clear()" class="ui-button-rounded pull-left" ></button>
-        <button pButton type="button" label="Print" (click)="printCars()" [disabled]="btnPrint" class="ui-button-rounded pull-left" ></button>  
+        <button pButton type="button" label="Find" (click)="findCarParams()" [disabled]="!btnFind" class="ui-button-rounded pull-left" ></button> 
+        <button pButton type="button" label="Clear" (click)="clear()" [disabled]="!btnClean" class="ui-button-rounded pull-left" ></button>
+        <button pButton type="button" label="Print" (click)="printCars()" [disabled]="!btnPrint" class="ui-button-rounded pull-left" ></button>  
          
       </div>
     </form>
