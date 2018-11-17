@@ -17,8 +17,8 @@ export class CarComponent extends BaseCadastro implements OnInit {
   @ViewChild('ptable') ptable: Table;
 
   cars: Array<Car> = new Array<Car>();
-  selectedCar: Car = Car.instance;
-  oldSelectedCar: Car = Car.instance;
+  selectedCar: Car = Car.getInstance();
+  oldSelectedCar: Car = Car.getInstance();
 
   btnSalvar: boolean;
   btnCancelar: boolean;
@@ -27,8 +27,6 @@ export class CarComponent extends BaseCadastro implements OnInit {
   clickNovo: boolean = true;
   btnDeletar: boolean;
   btnPrint: boolean;
-  btnClean: boolean;
-  btnFind: boolean;
 
   constructor(private carService: CarService, private listsService: ListsService) {
     super();
@@ -36,12 +34,13 @@ export class CarComponent extends BaseCadastro implements OnInit {
 
   ngOnInit() {
    this.navigate();
+   this.clone();
   }
 
   findCarParams() {
     this.carService.findCarParams(this.selectedCar).subscribe((responseApi: ResponseApi) => {
       this.cars = responseApi['data'];
-      this.selectedCar = this.cars.length > 0 ? this.cars[0] : Car.instance;
+      this.selectedCar = this.cars.length > 0 ? this.cars[0] : Car.getInstance();
       this.clone();
       this.navigate();
     }, err => {
@@ -71,7 +70,7 @@ export class CarComponent extends BaseCadastro implements OnInit {
   deleteCar() {
      this.carService.deleteCar(this.selectedCar.id).subscribe((responseApi: ResponseApi) => {
       Utils.arrayRemoveItem(this.cars, this.selectedCar, 'id');
-      this.selectedCar = this.cars.length > 0 ? this.cars[0] : Car.instance;
+      this.selectedCar = this.cars.length > 0 ? this.cars[0] : Car.getInstance();
       this.clone();
       this.navigate();
     }, err => {
@@ -101,17 +100,19 @@ export class CarComponent extends BaseCadastro implements OnInit {
 
   onRowUnselect(event) {
     this.selectedCar = JSON.parse(JSON.stringify( this.oldSelectedCar ));
-    this.navigate();
+    // this.navigate();
   }
 
   clone() {
+    console.log('clone...');
     this.oldSelectedCar = JSON.parse(JSON.stringify( this.selectedCar ));
   }
 
   novo() {
-    this.cars.push(Car.instance);
-    this.selectedCar = Car.instance;
+    this.cars.push(Car.getInstance());
+    this.selectedCar = Car.getInstance();
     Utils.cleanObject(this.selectedCar);
+    // this.clone();
     this.clickNovo = false;
     this.navigate();
   }
@@ -121,12 +122,12 @@ export class CarComponent extends BaseCadastro implements OnInit {
       Utils.arrayRemoveItem(this.cars, this.selectedCar, 'id');
       this.clickNovo = true;
     }
-    this.selectedCar = this.oldSelectedCar;
+    this.selectedCar = JSON.parse(JSON.stringify( this.oldSelectedCar ));
     Utils.arraySetItem(this.cars, this.selectedCar, 'id');
     this.navigate();
   }
 
-  navigate () {
+  navigate() {
 
     const edit: boolean = (JSON.stringify(this.oldSelectedCar) !== JSON.stringify(this.selectedCar));
     const idIsNull: boolean = (this.selectedCar.id === null);
@@ -138,8 +139,6 @@ export class CarComponent extends BaseCadastro implements OnInit {
     this.btnNovo     = this.clickNovo && !edit;
     this.btnDeletar  = full && !idIsNull && !edit;
     this.btnPrint    = full && !this.btnCancelar;
-    this.btnClean    = !this.btnCancelar;
-    this.btnFind     = !this.btnCancelar;
 
     // console.log(`this.cars.length=${this.cars.length}`);
     // console.log(`this.selectedCar.id=${this.selectedCar.id}`);
@@ -150,7 +149,8 @@ export class CarComponent extends BaseCadastro implements OnInit {
   }
 
   clear() {
-    this.selectedCar = Car.instance;
+    this.selectedCar = Car.getInstance();
+    this.navigate();
   }
 
 }

@@ -2,8 +2,6 @@ import { Color } from './color';
 
 export class Car {
 
-  public static instance: Car = new Car(null, null, '', null, null, null, null);
-
   constructor(
       public id: number,
       public year: number,
@@ -13,5 +11,9 @@ export class Car {
       public saleDate: Date,
       public status: string
   ) {}
+
+  public static getInstance(): Car {
+    return new Car(null, null, '', null, null, null, null);
+  }
 
 }
