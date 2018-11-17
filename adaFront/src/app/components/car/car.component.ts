@@ -109,17 +109,16 @@ export class CarComponent extends BaseCadastro implements OnInit {
   }
 
   novo() {
+    this.cars.push(Car.instance);
     this.selectedCar = Car.instance;
-    this.cars.push(this.selectedCar);
+    Utils.cleanObject(this.selectedCar);
     this.clickNovo = false;
-    this.clone();
     this.navigate();
   }
 
   cancel() {
     if (this.selectedCar.id === null) {
       Utils.arrayRemoveItem(this.cars, this.selectedCar, 'id');
-      this.selectedCar = this.cars.length > 0 ? this.cars[0] : Car.instance;
       this.clickNovo = true;
     }
     this.selectedCar = this.oldSelectedCar;

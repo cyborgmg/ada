@@ -25,4 +25,10 @@ export class Utils {
         });
     }
 
+    public static cleanObject(o: Object): void {
+        Object.keys(o).forEach((prop: any) => {
+            o[prop] = null;
+        });
+    }
+
 }
