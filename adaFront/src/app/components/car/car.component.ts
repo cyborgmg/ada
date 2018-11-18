@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {Car} from '../../model/car';
-import {CarService} from '../../services/car.service';
+import { Car } from '../../model/car';
+import { CarService } from '../../services/car.service';
 import { ListsService } from '../../services/lists.service';
 import { ResponseApi } from '../../model/response-api';
 import { Table } from 'primeng/table';
@@ -31,8 +31,8 @@ export class CarComponent extends BaseCadastro implements OnInit {
   }
 
   ngOnInit() {
-   this.navigate();
    this.clone();
+   this.navigate();
   }
 
   findCarParams() {
@@ -95,12 +95,11 @@ export class CarComponent extends BaseCadastro implements OnInit {
 
   }
 
-  onRowUnselect(event) {
+  onRowUnselect(event: Event) {
     this.selectedCar = JSON.parse(JSON.stringify( this.oldSelectedCar ));
   }
 
   clone() {
-    console.log('clone...');
     this.oldSelectedCar = JSON.parse(JSON.stringify( this.selectedCar ));
   }
 
@@ -120,13 +119,19 @@ export class CarComponent extends BaseCadastro implements OnInit {
     this.navigate();
   }
 
+  clear() {
+    this.selectedCar = Car.getInstance();
+    this.navigate();
+  }
+
   navigate() {
 
     const edit: boolean = (JSON.stringify(this.oldSelectedCar) !== JSON.stringify(this.selectedCar));
     const idIsNull: boolean = (this.selectedCar.id == null);
     const full: boolean = (this.cars.length > 0);
     const required: boolean = !Utils.strIsEmpty(this.selectedCar.brand);
-    const novo: boolean = ( JSON.stringify(this.cars[this.cars.length - 1]) === JSON.stringify(this.selectedCar) ) && (idIsNull) ;
+    // tslint:disable-next-line:max-line-length
+    const novo: boolean = ( JSON.stringify(this.cars[this.cars.indexOf(this.selectedCar)]) === JSON.stringify(this.selectedCar) ) && (idIsNull) ;
 
     this.btnSalvar   = full && edit && required;
     this.btnCancelar = full && ( novo || edit );
@@ -134,17 +139,14 @@ export class CarComponent extends BaseCadastro implements OnInit {
     this.btnDeletar  = full && !idIsNull && !edit;
     this.btnPrint    = full && !this.btnCancelar;
 
+    this.ptable.selectionMode = !this.btnCancelar ? 'single' : 'none';
+
     // console.log(`this.cars.length=${this.cars.length}`);
     // console.log(`this.selectedCar.id=${this.selectedCar.id}`);
     // console.log(`this.selectedCar=${JSON.stringify(this.selectedCar)}`);
     // console.log(`this.oldSelectedCar=${JSON.stringify(this.oldSelectedCar)}`);
     // console.log(`===============================================================================================`);
 
-  }
-
-  clear() {
-    this.selectedCar = Car.getInstance();
-    this.navigate();
   }
 
 }
