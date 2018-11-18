@@ -23,8 +23,6 @@ export class CarComponent extends BaseCadastro implements OnInit {
   btnSalvar: boolean;
   btnCancelar: boolean;
   btnNovo: boolean;
-  // tslint:disable-next-line:no-inferrable-types
-  clickNovo: boolean = true;
   btnDeletar: boolean;
   btnPrint: boolean;
 
@@ -56,7 +54,6 @@ export class CarComponent extends BaseCadastro implements OnInit {
       this.selectedCar = responseApi['data'];
       this.cars = new Array<Car>();
       this.cars.push(this.selectedCar);
-      this.clickNovo = true;
       this.clone();
       this.navigate();
     }, err => {
@@ -100,7 +97,6 @@ export class CarComponent extends BaseCadastro implements OnInit {
 
   onRowUnselect(event) {
     this.selectedCar = JSON.parse(JSON.stringify( this.oldSelectedCar ));
-    // this.navigate();
   }
 
   clone() {
@@ -112,15 +108,12 @@ export class CarComponent extends BaseCadastro implements OnInit {
     this.cars.push(Car.getInstance());
     this.selectedCar = Car.getInstance();
     Utils.cleanObject(this.selectedCar);
-    // this.clone();
-    this.clickNovo = false;
     this.navigate();
   }
 
   cancel() {
     if (this.selectedCar.id === null) {
       Utils.arrayRemoveItem(this.cars, this.selectedCar, 'id');
-      this.clickNovo = true;
     }
     this.selectedCar = JSON.parse(JSON.stringify( this.oldSelectedCar ));
     Utils.arraySetItem(this.cars, this.selectedCar, 'id');
@@ -130,13 +123,14 @@ export class CarComponent extends BaseCadastro implements OnInit {
   navigate() {
 
     const edit: boolean = (JSON.stringify(this.oldSelectedCar) !== JSON.stringify(this.selectedCar));
-    const idIsNull: boolean = (this.selectedCar.id === null);
+    const idIsNull: boolean = (this.selectedCar.id == null);
     const full: boolean = (this.cars.length > 0);
     const required: boolean = !Utils.strIsEmpty(this.selectedCar.brand);
+    const novo: boolean = ( JSON.stringify(this.cars[this.cars.length - 1]) === JSON.stringify(this.selectedCar) ) && (idIsNull) ;
 
     this.btnSalvar   = full && edit && required;
-    this.btnCancelar = full && ( !this.clickNovo || edit );
-    this.btnNovo     = this.clickNovo && !edit;
+    this.btnCancelar = full && ( novo || edit );
+    this.btnNovo     = !novo && !edit;
     this.btnDeletar  = full && !idIsNull && !edit;
     this.btnPrint    = full && !this.btnCancelar;
 
