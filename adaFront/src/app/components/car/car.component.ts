@@ -31,7 +31,7 @@ export class CarComponent extends BaseCadastro implements OnInit {
   }
 
   ngOnInit() {
-   this.clone();
+   this.copy();
    this.navigate();
   }
 
@@ -39,7 +39,7 @@ export class CarComponent extends BaseCadastro implements OnInit {
     this.carService.findCarParams(this.selectedCar).subscribe((responseApi: ResponseApi) => {
       this.cars = responseApi['data'];
       this.selectedCar = this.cars.length > 0 ? this.cars[0] : Car.getInstance();
-      this.clone();
+      this.copy();
       this.navigate();
     }, err => {
       this.showMessage({
@@ -54,7 +54,7 @@ export class CarComponent extends BaseCadastro implements OnInit {
       this.selectedCar = responseApi['data'];
       this.cars = new Array<Car>();
       this.cars.push(this.selectedCar);
-      this.clone();
+      this.copy();
       this.navigate();
     }, err => {
       this.showMessage({
@@ -65,10 +65,10 @@ export class CarComponent extends BaseCadastro implements OnInit {
   }
 
   deleteCar() {
-     this.carService.deleteCar(this.selectedCar.id).subscribe((responseApi: ResponseApi) => {
+     this.carService.deleteCar(this.selectedCar.id).subscribe(() => {
       Utils.arrayRemoveItem(this.cars, this.selectedCar, 'id');
       this.selectedCar = this.cars.length > 0 ? this.cars[0] : Car.getInstance();
-      this.clone();
+      this.copy();
       this.navigate();
     }, err => {
       this.showMessage({
@@ -96,17 +96,17 @@ export class CarComponent extends BaseCadastro implements OnInit {
   }
 
   onRowUnselect(event: Event) {
-    this.selectedCar = JSON.parse(JSON.stringify( this.oldSelectedCar ));
+    this.selectedCar = Utils.clone( this.oldSelectedCar );
   }
 
-  clone() {
-    this.oldSelectedCar = JSON.parse(JSON.stringify( this.selectedCar ));
+  copy() {
+    this.oldSelectedCar = Utils.clone(this.selectedCar);
   }
 
   novo() {
-    this.cars.push(Car.getInstance());
-    this.selectedCar = Car.getInstance();
-    Utils.cleanObject(this.selectedCar);
+    const car: Car = Car.getInstance();
+    this.cars.push(car);
+    this.selectedCar = car ;
     this.navigate();
   }
 
@@ -114,13 +114,13 @@ export class CarComponent extends BaseCadastro implements OnInit {
     if (this.selectedCar.id === null) {
       Utils.arrayRemoveItem(this.cars, this.selectedCar, 'id');
     }
-    this.selectedCar = JSON.parse(JSON.stringify( this.oldSelectedCar ));
+    this.selectedCar = Utils.clone( this.oldSelectedCar );
     Utils.arraySetItem(this.cars, this.selectedCar, 'id');
     this.navigate();
   }
 
   clear() {
-    this.selectedCar = Car.getInstance();
+    Utils.cleanObject(this.selectedCar, 'id');
     this.navigate();
   }
 

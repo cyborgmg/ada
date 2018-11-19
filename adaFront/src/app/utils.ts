@@ -4,9 +4,9 @@ export class Utils {
         return str === null || str === '' ;
     }
 
-    public static arrayRemoveItem(array: Array<any>, item: any, key: string): void {
+    public static arrayRemoveItem<T>(array: Array<T>, item: T, key: string): void {
         let idx = 0;
-        array.forEach((element: any) => {
+        array.forEach((element: T) => {
             if ( element[key] === item[key] ) {
                 array.splice(idx, 1);
             }
@@ -15,9 +15,9 @@ export class Utils {
 
     }
 
-    public static arraySetItem(array: Array<any>, item: any, key: string): void {
+    public static arraySetItem<T>(array: Array<T>, item: T, key: string): void {
         let idx = 0;
-        array.forEach((element: any) => {
+        array.forEach((element: T) => {
             if ( element[key] === item[key] ) {
                 array[idx] = item;
             }
@@ -25,10 +25,16 @@ export class Utils {
         });
     }
 
-    public static cleanObject(o: Object): void {
-        Object.keys(o).forEach((prop: any) => {
-            o[prop] = null;
+    public static cleanObject<T>(o: T, key: string): void {
+        Object.keys(o).forEach((prop: string) => {
+            if (JSON.stringify(o[prop]) !== JSON.stringify(o[key])) {
+                o[prop] = null;
+            }
         });
+    }
+
+    public static clone<T>(o: T): T {
+        return JSON.parse(JSON.stringify(o));
     }
 
 }
