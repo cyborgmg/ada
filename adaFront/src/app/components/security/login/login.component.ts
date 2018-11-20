@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  user = User.instance;
+  user = User.getInstance();
   shared: SharedService;
   message: string;
 
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 
   cancelLogin() {
     this.message = '';
-    this.user = User.instance;
+    this.user = User.getInstance();
     window.location.href = '/login';
     window.location.reload();
   }

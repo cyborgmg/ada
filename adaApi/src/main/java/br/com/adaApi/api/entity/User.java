@@ -1,13 +1,21 @@
 package br.com.adaApi.api.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import br.com.adaApi.api.enums.ProfileEnum;
-
-import java.util.List;
 
 
 /**
@@ -23,7 +31,7 @@ public class User implements Serializable {
 	@Id
 	@SequenceGenerator(name="USER_ID_GENERATOR", sequenceName="USER_SQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USER_ID_GENERATOR")
-	private long id;
+	private Long id;
 
 	@Column(unique=true)
 	@NotBlank(message="Email requerido")
@@ -32,17 +40,18 @@ public class User implements Serializable {
 
 	private String password;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name="PERFIL")
 	private ProfileEnum profile;
 
 	public User() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

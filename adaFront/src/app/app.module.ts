@@ -13,8 +13,6 @@ import { UserService } from './services/user.service';
 import { SharedService } from './services/shared.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { UserNewComponent } from './components/user-new/user-new.component';
-import { UserListComponent } from './components/user-list/user-list.component';
 import { DialogService } from './services/dialog.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TableModule } from 'primeng/table';
@@ -33,6 +31,8 @@ import {PanelMenuModule} from 'primeng/panelmenu';
 import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
 import { StatusLabelPipe } from './pipes/status-label.pipe';
 import { CadastroUsuarioComponent } from './components/cadastro-usuario/cadastro-usuario.component';
+import {BlockUIModule} from 'primeng/blockui';
+import { ProfileLabelPipe } from './pipes/profile-label.pipe';
 
 registerLocaleData(localePtBr);
 
@@ -44,14 +44,13 @@ registerLocaleData(localePtBr);
     FooterComponent,
     LoginComponent,
     HomeComponent,
-    UserNewComponent,
-    UserListComponent,
     CarComponent,
     DivPCalendarComponent,
     ButtonConfirmComponent,
     CurrencyFormatPipe,
     StatusLabelPipe,
-    CadastroUsuarioComponent
+    CadastroUsuarioComponent,
+    ProfileLabelPipe
   ],
   imports: [
     BrowserModule,
@@ -66,7 +65,8 @@ registerLocaleData(localePtBr);
     DropdownModule,
     NgxCurrencyModule,
     DialogModule,
-    PanelMenuModule
+    PanelMenuModule,
+    BlockUIModule
   ],
   providers: [
     UserService,

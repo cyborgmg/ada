@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../model/user.model';
 import { URL_API } from './url.api';
 import { SharedService } from './shared.service';
+import { HttpRespPdfReqJsonService } from './http-resp-pdf-req-json.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,21 +16,12 @@ export class UserService {
     return this.http.post(`${URL_API}/api/auth`, user);
   }
 
-  createOrUpdate(user: User) {
-    if ( user.id !== null && user.id !== '') {
-      return this.http.put(`${URL_API}/api/user`, user);
-    } else {
-      user.id = null;
+  save(user: User) {
       return this.http.post(`${URL_API}/api/user`, user);
-    }
   }
 
-  findAll(page: number, count: number) {
-    return this.http.get(`${URL_API}/api/user/${page}/${count}`);
-  }
-
-  findById(id: string) {
-    return this.http.get(`${URL_API}/api/user/${id}`);
+  findUserParams(user: User) {
+    return this.http.post(`${URL_API}/api/user/find`, user);
   }
 
   delete(id: string) {
@@ -38,6 +30,10 @@ export class UserService {
 
   getUser() {
     return this.http.get(`${URL_API}/api/getuser/${SharedService.getInstance().token}`);
+  }
+
+  print(data: any) {
+    return HttpRespPdfReqJsonService.post(`${URL_API}/api/user/print`, data);
   }
 
 }

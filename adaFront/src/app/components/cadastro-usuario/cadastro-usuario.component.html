@@ -1,3 +1,206 @@
-<p>
-  cadastro-usuario works!
-</p>
+<div  style="margin-left: 0%; width: 100%">
+
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">Cadastro de Usuários</h3>
+    </div>
+
+    <form class="form-group" #form="ngForm">
+
+      <div [ngClass]="classCss" role="alert" *ngIf="message">
+          <strong>{{ message.text }}</strong>
+      </div>
+
+      <div class="box-body">
+
+        <div class="form-group">
+
+            <p-blockUI [target]="ptable" [blocked]="blockedPtable">
+            </p-blockUI>
+
+            <p-table #ptable [value]="users" selectionMode="single" [(selection)]="selectedUser" (onRowSelect)="copy()" 
+              dataKey="id" [scrollable]="true" scrollHeight="100px" (onRowUnselect)="onRowUnselect($event)">
+              <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 10%">Id</th>
+                        <th>E-mail</th>
+                        <th style="width: 20%">Perfil</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-user>
+                    <tr [pSelectableRow]="user" >
+                        <td style="width: 10%">{{user.id}}</td>
+                        <td>{{user.email}}</td>
+                        <td style="width: 20%">{{user.profile | profileLabel}}</td>
+                    </tr>
+                </ng-template>
+              <ng-template pTemplate="summary">
+                  <div style="text-align: left">
+                  </div>
+              </ng-template>
+          </p-table>
+
+        </div>
+        
+        <div class="form-group col-sm-3">
+            <label for="inputid" class="control-label">Id</label>
+            <input type="text" 
+                   disabled=true
+                   class="form-control" 
+                   id="inputid" 
+                   placeholder="id"
+                   name="id"
+                   [(ngModel)]="selectedUser.id"
+                   #id="ngModel"
+                   pInputText
+                   >
+        </div>
+
+        <div class="form-group col-sm-5" [ngClass]="getFormGroupClass(email.invalid,email.dirty)">
+            <label for="inputemail" class="control-label">E-mail</label>
+            <input type="email" 
+                   class="form-control" 
+                   id="inputemail" 
+                   placeholder="email"
+                   name="email"
+                   [(ngModel)]="selectedUser.email"
+                   #email="ngModel"
+                   required
+                   pInputText
+                   (keyup)="navigate()"
+                   >
+        </div>
+
+        <div class="form-group col-sm-3" [ngClass]="getFormGroupClass(profile.invalid,profile.dirty)">
+            <label for="inputprofile" class="control-label">Perfil</label>
+            <div class="form-group">
+                <p-dropdown 
+                    [options]="listsService.profiles"
+                    id="inputprofile" 
+                    name="profile"
+                    [(ngModel)]="selectedUser.profile"
+                    #profile="ngModel" 
+                    [style]="{'width':'100%'}"
+                    (onChange)="navigate()"
+                    required
+                ></p-dropdown>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-5" [ngClass]="getFormGroupClass(password.invalid,password.dirty)">
+          <label for="inputpassword" class="control-label">Senha</label>
+
+          <div class="ui-inputgroup">
+            <input type="password" 
+                  class="form-control" 
+                  id="inputpassword" 
+                  placeholder="password"
+                  name="password"
+                  [(ngModel)]="selectedUser.password"
+                  #password="ngModel"
+                  required
+                  pInputText
+                  disabled=true
+                  (keyup)="navigate()"
+                  >
+            <button pButton type="button" icon="pi pi-check" (click)="showDldSenhas()" [disabled]="!btnSenha" ></button>
+
+            <p-dialog header="Definição de senha" [(visible)]="dlgPasswdDisplay" [modal]="true" [responsive]="true" [width]="450" [minWidth]="200" [minY]="70" 
+              [baseZIndex]="10000">
+              <div class="form-group">
+                <label for="inputpassword1" class="control-label">Senha</label>
+                <div>
+                  <input type="password" 
+                        class="form-control" 
+                        id="inputpassword1" 
+                        placeholder="password"
+                        name="password1"
+                        [(ngModel)]="senha1"
+                        #password1="ngModel"
+                        required
+                        pInputText
+                        (keyup)="navigateSenhas()"
+                  >
+                </div>
+                <br/>
+                <label for="inputpassword2" class="control-label">Confirmar Senha</label>
+                <div>
+                  <input type="password" 
+                        class="form-control" 
+                        id="inputpassword2" 
+                        placeholder="password"
+                        name="password2"
+                        [(ngModel)]="senha2"
+                        #password2="ngModel"
+                        required
+                        pInputText
+                        (keyup)="navigateSenhas()"
+                  >
+                </div>
+              </div>
+              <p-footer>
+                  <button type="button" pButton icon="pi pi-check" (click)="okSenhas()" label="Sim" [disabled]="!senhaMatch" ></button>
+                  <button type="button" pButton icon="pi pi-close" (click)="dlgPasswdDisplay=false" label="Não" class="ui-button-secondary"></button>
+              </p-footer>
+            </p-dialog>
+
+          </div>  
+
+        </div>
+
+      </div> 
+      
+      <div class="box-footer">
+
+        <app-button-confirm 
+                label="Salvar" 
+                class="ui-button-rounded pull-right" 
+                [disabled]="!btnSalvar" 
+                title="Save" 
+                message="Deseja realmente salvar este registro" 
+                (confiormClick)="saveCar()"
+                ></app-button-confirm>
+
+        <span class="pull-right">&nbsp;</span>
+
+        <app-button-confirm 
+                label="Cancelar" 
+                class="ui-button-rounded pull-right" 
+                [disabled]="!btnCancelar" 
+                title="Cancel" 
+                message="Deseja realmente cancelar este registro" 
+                (confiormClick)="cancel()" 
+                ></app-button-confirm>
+
+        <span class="pull-right">&nbsp;</span>
+
+        <app-button-confirm 
+                label="Novo" 
+                class="ui-button-rounded pull-right" 
+                [disabled]="!btnNovo" 
+                title="New" 
+                message="Deseja realmente incluir um novo registro?" 
+                (confiormClick)="novo()"
+                ></app-button-confirm>
+
+        <span class="pull-right">&nbsp;</span>
+
+        <app-button-confirm 
+                label="Excluir" 
+                class="ui-button-rounded pull-right" 
+                [disabled]="!btnDeletar" 
+                title="Delete" 
+                message="Deseja realmente excluir este registro?" 
+                (confiormClick)="deleteCar()"
+                ></app-button-confirm>
+        
+        <button pButton type="button" label="Localizar" (click)="findCarParams()" class="ui-button-rounded pull-left" ></button> 
+        <button pButton type="button" label="Apagar" (click)="clear()" class="ui-button-rounded pull-left" ></button>
+        <button pButton type="button" label="Imprimir" (click)="printCars()" [disabled]="!btnPrint" class="ui-button-rounded pull-left" ></button>  
+         
+      </div>
+    </form>
+
+  </div>
+
+</div>

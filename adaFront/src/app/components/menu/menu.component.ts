@@ -34,8 +34,7 @@ export class MenuComponent implements OnInit {
                 label: 'User',
                 icon: 'pi pi-pw pi-users',
                 items: [
-                    {label: 'List', icon: 'pi pi-fw pi-circle-off'},
-                    {label: 'New User', icon: 'pi pi-fw pi-circle-off'}
+                    {label: 'Usuário', routerLink: ['/user'], icon: 'pi pi-fw pi-circle-off'}
                 ]
             });
         }
@@ -46,7 +45,7 @@ export class MenuComponent implements OnInit {
                 icon: 'pi pi-fw pi-folder-open',
                 routerLink: null,
                 items: [
-                    {label: 'Car', routerLink: ['/car'], icon: 'pi pi-fw pi-circle-off', items: null}
+                    {label: 'Car', routerLink: ['/car'], icon: 'pi pi-fw pi-circle-off'}
                 ]
             });
         }

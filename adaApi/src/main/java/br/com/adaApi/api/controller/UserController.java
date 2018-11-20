@@ -1,5 +1,9 @@
 package br.com.adaApi.api.controller;
 
+import java.io.IOException;
+import java.util.stream.*;
+import java.util.*;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +19,16 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.adaApi.api.entity.Car;
 import br.com.adaApi.api.entity.User;
 import br.com.adaApi.api.response.Response;
+import br.com.adaApi.api.service.Report;
 import br.com.adaApi.api.service.UserService;
+import net.sf.jasperreports.engine.JRException;
 
 @RestController
 @RequestMapping("/api/user")
@@ -35,14 +41,17 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private Report<User> reportUser;
+	
 	@PostMapping
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<Response<User>> create(HttpServletRequest request, @RequestBody User user, BindingResult result){
+	public ResponseEntity<Response<User>> createOrUpdate(HttpServletRequest request, @RequestBody User user, BindingResult result){
 		
 		Response<User> response = new Response<User>();
 		
 		try {
-			validateCreateUser(user, result);
+			validatecreateOrUpdate(user, result);
 			if(result.hasErrors()) {
 				result.getAllErrors().forEach(error-> response.getErrors().add(error.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response); 
@@ -61,60 +70,39 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	private void validateCreateUser(User user, BindingResult result) {
+	private void validatecreateOrUpdate(User user, BindingResult result) {
 		if(user.getEmail()==null) {
 			result.addError(new ObjectError("User", "Email no information"));
 		}
+		if(user.getPassword()==null) {
+			result.addError(new ObjectError("User", "Password no information"));
+		}
+		if(user.getProfile()==null) {
+			result.addError(new ObjectError("User", "Profile no information"));
+		}
 	}
-	/*
-	@PutMapping
+	
+	@PostMapping("/find")
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<Response<User>> update(HttpServletRequest request, @RequestBody User user,
-			BindingResult result){
-		Response<User> response = new Response<User>();
-		
+	public ResponseEntity<Response<List<User>>> findUserParams(HttpServletRequest request, @RequestBody User user, BindingResult result){
+		Response<List<User>> response = new Response<List<User>>();
 		try {
-			validateUpdateUser(user, result);
 			if(result.hasErrors()) {
 				result.getAllErrors().forEach(error-> response.getErrors().add(error.getDefaultMessage()));
-				return ResponseEntity.badRequest().body(response); 
+				return ResponseEntity.badRequest().body(response);
 			}
-			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			User userPersisted = (User) userService.createOrUpdate(user);
-			response.setData(userPersisted);
+			List<User> userlocks = userService.findUserParams(user.getEmail(), user.getProfile());
+			response.setData(userlocks);
 		} catch (Exception e) {
 			response.getErrors().add(e.getMessage());
 			return ResponseEntity.badRequest().body(response);
 		}
-		
-		return ResponseEntity.ok(response);
-	}
-	
-	private void validateUpdateUser(User user, BindingResult result) {
-		if(user.getId()==0) {
-			result.addError(new ObjectError("User", "Id no information"));
-		}
-		if(user.getEmail()==null) {
-			result.addError(new ObjectError("User", "Email no information"));
-		}
-	}
-	*/
-	@GetMapping(value="{id}")
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<Response<User>> findById(@PathVariable("id") String id){
-		Response<User> response = new Response<User>();
-		User user = userService.findById(id);
-		if(user==null) {
-			response.getErrors().add("Register not found "+id);
-			return ResponseEntity.badRequest().body(response);
-		}
-		response.setData(user);
 		return ResponseEntity.ok(response);		
 	}
 	
 	@DeleteMapping(value="{id}")
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<Response<String>> delete(@PathVariable("id") String id){
+	public ResponseEntity<Response<String>> delete(@PathVariable("id") Long id){
 		Response<String> response = new Response<String>();
 		User user = userService.findById(id);
 		if(user==null) {
@@ -134,4 +122,14 @@ public class UserController {
 		return ResponseEntity.ok(response);	
 	}
 	
+	@PostMapping("/print")
+	@PreAuthorize("hasAnyRole('ADMIN','CUSTUMER','TECHNICIAN')")
+	public ResponseEntity<byte[]> printAll(HttpServletRequest request, @RequestBody List<User> users, BindingResult result) throws JRException, IOException {
+		
+		//Ordenando por profile
+		users = users.stream().sorted(Comparator.comparing(User::getProfile)).collect(Collectors.toList());
+		
+		return ResponseEntity.ok(reportUser.print("reports/reportUsers.jasper", new HashMap<>(), users));
+		
+	}	
 }

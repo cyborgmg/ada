@@ -15,6 +15,9 @@
 
         <div class="form-group">
 
+            <p-blockUI [target]="ptable" [blocked]="blockedPtable">
+            </p-blockUI>
+
             <p-table #ptable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="copy()" 
               dataKey="id" [scrollable]="true" scrollHeight="100px" (onRowUnselect)="onRowUnselect($event)">
               <ng-template pTemplate="header">

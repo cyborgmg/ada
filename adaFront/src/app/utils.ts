@@ -25,7 +25,10 @@ export class Utils {
         });
     }
 
-    public static cleanObject<T>(o: T, key: string): void {
+    public static cleanObject<T>(o: T, key: string = ''): void {
+
+        console.log(typeof o);
+
         Object.keys(o).forEach((prop: string) => {
             if (JSON.stringify(o[prop]) !== JSON.stringify(o[key])) {
                 o[prop] = null;
@@ -35,6 +38,10 @@ export class Utils {
 
     public static clone<T>(o: T): T {
         return JSON.parse(JSON.stringify(o));
+    }
+
+    public static equal<T>(o1: T, o2: T): boolean {
+        return JSON.stringify(o1) === JSON.stringify(o2);
     }
 
 }

@@ -15,6 +15,8 @@ import { BaseCadastro } from 'src/app/pattern/base-cadastro';
 export class CarComponent extends BaseCadastro implements OnInit {
 
   @ViewChild('ptable') ptable: Table;
+  // tslint:disable-next-line:no-inferrable-types
+  blockedPtable: boolean = false;
 
   cars: Array<Car> = new Array<Car>();
   selectedCar: Car = Car.getInstance();
@@ -107,6 +109,7 @@ export class CarComponent extends BaseCadastro implements OnInit {
     const car: Car = Car.getInstance();
     this.cars.push(car);
     this.selectedCar = car ;
+    Utils.cleanObject(this.selectedCar);
     this.navigate();
   }
 
@@ -139,12 +142,15 @@ export class CarComponent extends BaseCadastro implements OnInit {
     this.btnDeletar  = full && !idIsNull && !edit;
     this.btnPrint    = full && !this.btnCancelar;
 
-    this.ptable.selectionMode = !this.btnCancelar ? 'single' : 'none';
+    this.blockedPtable = this.btnCancelar;
+
+    // this.ptable.selectionMode = !this.btnCancelar ? 'single' : 'none';
 
     // console.log(`this.cars.length=${this.cars.length}`);
     // console.log(`this.selectedCar.id=${this.selectedCar.id}`);
     // console.log(`this.selectedCar=${JSON.stringify(this.selectedCar)}`);
     // console.log(`this.oldSelectedCar=${JSON.stringify(this.oldSelectedCar)}`);
+    // console.log(`!novo=${!novo} && !edit=${!edit}`);
     // console.log(`===============================================================================================`);
 
   }

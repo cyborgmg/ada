@@ -18,6 +18,13 @@ export class ListsService {
     {label: 'Plus', value: 'P'}
   ];
 
+  public profiles = [
+    {label: 'Selecione um Perfil', value: null},
+    {label: 'ADMIN', value: 'ROLE_ADMIN'},
+    {label: 'CUSTUMER', value: 'ROLE_CUSTUMER'},
+    {label: 'TECHNICIAN', value: 'ROLE_TECHNICIAN'}
+  ];
+
   constructor(private colorService: ColorService ) {
 
       this.colorService.findAllDropDown().subscribe((responseApi: ResponseApi) => {

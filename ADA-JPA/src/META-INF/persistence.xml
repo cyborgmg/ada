@@ -3,6 +3,6 @@
 	<persistence-unit name="ADA-JPA">
 		<class>br.com.adaApi.api.entity.Car</class>
 		<class>br.com.adaApi.api.entity.Color</class>
-		<class>br.com.adaApi.api.entity.Usuario</class>
+		<class>br.com.adaApi.api.entity.User</class>
 	</persistence-unit>
 </persistence>

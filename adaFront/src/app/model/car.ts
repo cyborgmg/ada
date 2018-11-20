@@ -13,7 +13,7 @@ export class Car {
   ) {}
 
   public static getInstance(): Car {
-    return new Car(null, null, '', null, null, null, null);
+    return new Car(null, null, null, null, null, null, null);
   }
 
 }
