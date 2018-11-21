@@ -27,8 +27,6 @@ export class Utils {
 
     public static cleanObject<T>(o: T, key: string = ''): void {
 
-        console.log(typeof o);
-
         Object.keys(o).forEach((prop: string) => {
             if (JSON.stringify(o[prop]) !== JSON.stringify(o[key])) {
                 o[prop] = null;
