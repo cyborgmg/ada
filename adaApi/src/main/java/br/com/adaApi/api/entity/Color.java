@@ -54,27 +54,11 @@ public class Color implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-/*
-	public List<Car> getCars() {
-		return this.cars;
+
+	@Override
+	public String toString() {
+		return "Color [id=" + id + ", nome=" + nome + "]";
 	}
 
-	public void setCars(List<Car> cars) {
-		this.cars = cars;
-	}
-
-	public Car addCar(Car car) {
-		getCars().add(car);
-		car.setColor(this);
-
-		return car;
-	}
-
-	public Car removeCar(Car car) {
-		getCars().remove(car);
-		car.setColor(null);
-
-		return car;
-	}
-*/
+	
 }

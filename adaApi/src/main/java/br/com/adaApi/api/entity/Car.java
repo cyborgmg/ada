@@ -60,6 +60,18 @@ public class Car implements Serializable {
 	public Car() {
 	}
 
+	public Car(String brand, BigDecimal price, Date saleDate, Long year, Color color, StatusEnum status) {
+		super();
+		this.brand = brand;
+		this.price = price;
+		this.saleDate = saleDate;
+		this.year = year;
+		this.color = color;
+		this.status = status;
+	}
+
+
+
 	public Long getId() {
 		return this.id;
 	}
@@ -114,6 +126,12 @@ public class Car implements Serializable {
 
 	public void setStatus(StatusEnum status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Car [id=" + id + ", brand=" + brand + ", price=" + price + ", saleDate=" + saleDate + ", year=" + year
+				+ ", color=" + color.toString() + ", status=" + status + "]";
 	}
 	
 	
