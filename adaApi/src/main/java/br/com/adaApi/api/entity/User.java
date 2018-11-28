@@ -46,6 +46,17 @@ public class User implements Serializable {
 
 	public User() {
 	}
+	
+	
+
+	public User(@NotBlank(message = "Email requerido") @Email(message = "Email inválido") String email, String password, ProfileEnum profile) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.profile = profile;
+	}
+
+
 
 	public Long getId() {
 		return this.id;

@@ -103,43 +103,13 @@
 			"response": []
 		},
 		{
-			"name": "get user id",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTMwNTM5NTYwMzkzLCJleHAiOjE1MzExNDQzNjB9.OUOozZNcYJx0jo_eHqiFUF_fnOQTD-6wIgCz1tpkt1qZHtMiu5TaAhtYURQfa1oPjIMR_zksHXeWtLa8_ccGPw"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/user/5b3a32dc7c7a6d3a71c9cdc6",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"user",
-						"5b3a32dc7c7a6d3a71c9cdc6"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "delete user",
 			"request": {
 				"method": "DELETE",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTMwNTM5NTYwMzkzLCJleHAiOjE1MzExNDQzNjB9.OUOozZNcYJx0jo_eHqiFUF_fnOQTD-6wIgCz1tpkt1qZHtMiu5TaAhtYURQfa1oPjIMR_zksHXeWtLa8_ccGPw"
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQyNjQ3Mjc4MzU2LCJleHAiOjE1NDMyNTIwNzh9.9HzOIngevMp2MDL9efTnw-z_UQLuzhcF7IQblwYb3-IccimPCg_wcZH0i66kY0q3qJNJOS6zWtXmckv_OUb_RA"
 					},
 					{
 						"key": "Content-Type",
@@ -151,7 +121,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/user/5b3a32dc7c7a6d3a71c9cdc6",
+					"raw": "http://localhost:8080/api/user/10",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -160,7 +130,7 @@
 					"path": [
 						"api",
 						"user",
-						"5b3a32dc7c7a6d3a71c9cdc6"
+						"10"
 					]
 				}
 			},
@@ -235,13 +205,18 @@
 			"name": "getuserByToken",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQzNDI3NTkyODg4LCJleHAiOjE1NDQwMzIzOTJ9.Fsp4Fest7l5-YX5zy92UnUJLHW39-gm1J4oQeE4w9HziiU49wOqJWQr52F8nqIa3e99Kfp6Iq581BRmpuiCb1A"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/getuser/eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQxMDQwMzMxNDAyLCJleHAiOjE1NDE2NDUxMzF9.069kjsrxaIa_dX3tItMIZads8mEL_4_m366t4T7-CI92BTyhAVbhob5B0ro35pANd6lrqRvu27vxIVU0W0tpBA",
+					"raw": "http://localhost:8080/api/token",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -249,8 +224,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"getuser",
-						"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQxMDQwMzMxNDAyLCJleHAiOjE1NDE2NDUxMzF9.069kjsrxaIa_dX3tItMIZads8mEL_4_m366t4T7-CI92BTyhAVbhob5B0ro35pANd6lrqRvu27vxIVU0W0tpBA"
+						"token"
 					]
 				}
 			},
@@ -289,7 +263,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQxNzY0Mjk5MDM5LCJleHAiOjE1NDIzNjkwOTl9.Qjy6hE-iJR5WLAWnUL2awhQekS_5GOkUH1pTCt57ns7djW8jV756KfgARMQkAD5DUq6U9zaDubyIjrEGnbvLMA"
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQyMjgxMzQ3NzUwLCJleHAiOjE1NDI4ODYxNDd9.6Q4FR2XwbX22HDba5ojNrLPU1Z9bOdHI9DjMzRHlTnPE_byKkL9ISh-7rj07SFItqV-l5YN_ty_Qbv0UCVDNWQ"
 					},
 					{
 						"key": "Content-Type",
@@ -298,7 +272,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": 1,\n    \"brand\": \"VW\",\n    \"price\": 10000,\n    \"saleDate\": \"01/01/2018\",\n    \"year\": 2012,\n    \"color\": {\n        \"id\": 1,\n        \"nome\": \"Orange\"\n    }\n}"
+					"raw": "{\n\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/car/find",
@@ -398,6 +372,40 @@
 						"api",
 						"car",
 						"print"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findUserParams",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTQyNjQ3Mjc4MzU2LCJleHAiOjE1NDMyNTIwNzh9.9HzOIngevMp2MDL9efTnw-z_UQLuzhcF7IQblwYb3-IccimPCg_wcZH0i66kY0q3qJNJOS6zWtXmckv_OUb_RA"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin@helpdesk.com\",\n    \"profile\": \"ROLE_ADMIN\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/find",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"find"
 					]
 				}
 			},

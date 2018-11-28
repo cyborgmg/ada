@@ -1,22 +1,21 @@
 import java.text.ParseException;
-import java.util.Date;
 
-import br.com.adaApi.api.enums.ProfileEnum;
+import org.springframework.web.client.RestTemplate;
+
+import br.com.adaApi.api.security.jwt.JwtAuthenticationRequest;
 
 public class Main {
 
 	public static void main(String[] args) throws ParseException {
 		
 		
-		//Date saleDate = new Date("01/01/2018");
-		
-		//int ano = saleDate.get(Calendar.YEAR);
-		//int mes = saleDate.get(Calendar.MONTH);
-		//int dia = saleDate.get(Calendar.DATE);
-		
-		//System.out.println(saleDate);
-		
-		System.out.println(ProfileEnum.ROLE_ADMIN.getLabel());
+		final String uri = "http://localhost:8080/api/auth";
+	     
+		RestTemplate restTemplate = new RestTemplate();
+	     
+		JwtAuthenticationRequest result = restTemplate.getForObject(uri, JwtAuthenticationRequest.class);
+	     
+	    System.out.println(result);
 
 	}
 

@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.lang.Iterable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,9 +42,11 @@ public class CarRepositoryTest {
     	cars.add(new Car("02", new BigDecimal(200) , (new SimpleDateFormat("dd/MM/yyyy")).parse("03/01/2018"), 2001L, new Color(2L,"Black"), StatusEnum.S));
     	cars.add(new Car("03", new BigDecimal(300) , (new SimpleDateFormat("dd/MM/yyyy")).parse("04/01/2018"), 2002L, new Color(3L,"Gray"), StatusEnum.P));
     	
+    	/*
     	cars.forEach( (Car car) -> { 
 			car = carRepository.save(car);
 		} );
+		*/
     }
     
     @After
@@ -57,32 +59,39 @@ public class CarRepositoryTest {
 	@Test
 	public void testFindCarParams() {
 		
-		assertTrue( cars.get(0).getId() == carRepository.findCarParams("01", null, null, null, null).get(0).getId() );
+		carRepository.saveAll((Iterable<Car>)cars);
 		
-		assertTrue( cars.get(1).getId() == carRepository.findCarParams(null, null, "200", null, null).get(0).getId() );
+		assertTrue( cars.get(0).getBrand().equals( carRepository.findCarParams("01", null, null, null, null).get(0).getBrand() ) );
 		
-		assertTrue( cars.get(2).getId() == carRepository.findCarParams(null, null, null, "04/01/2018", null).get(0).getId() );
+		assertTrue( cars.get(1).getYear().equals( carRepository.findCarParams(null, null, "200", null, null).get(0).getYear() ) );
+		
+		assertTrue( cars.get(2).getSaleDate().equals( carRepository.findCarParams(null, null, null, "04/01/2018", null).get(0).getSaleDate() ) );
 		
 	}
 
-    
-    
+	
 	@Test
 	public void testSave() {
 		
-		assertTrue(cars.get(0).getId()!=null);
-		assertTrue(cars.get(1).getId()!=null);
-		assertTrue(cars.get(2).getId()!=null);
+		assertTrue(carRepository.save(cars.get(0))!=null);
+		assertTrue(carRepository.save(cars.get(1))!=null);
+		assertTrue(carRepository.save(cars.get(2))!=null);
 	}
 
+	
 	@Test
 	public void testFindAll() {
+		
+		carRepository.saveAll((Iterable<Car>)cars);
 	
 		assertEquals(3,carRepository.findAll().size());		
 	}
 
+	
 	@Test
 	public void testFindById() {
+		
+		this.cars = carRepository.saveAll((Iterable<Car>)cars);
 		
 		assertTrue(carRepository.findById(cars.get(0).getId())!=null);
 		assertTrue(carRepository.findById(cars.get(1).getId())!=null);
@@ -90,8 +99,12 @@ public class CarRepositoryTest {
 		
 	}
 
+	
 	@Test
 	public void testDeleteById() {
+		
+		this.cars = carRepository.saveAll((Iterable<Car>)cars);
+		
 		carRepository.deleteById(cars.get(0).getId());
 		assertEquals(2,carRepository.findAll().size());
 		carRepository.deleteById(cars.get(1).getId());

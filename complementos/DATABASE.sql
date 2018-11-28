@@ -88,8 +88,8 @@ Insert into C##MCM.COLOR (ID,NOME) values ('5','Yellow');
 Insert into C##MCM.COLOR (ID,NOME) values ('6','Red');
 REM INSERTING into C##MCM.USUARIO
 SET DEFINE OFF;
-Insert into C##MCM.USUARIO (ID,EMAIL,PASSWORD,PERFIL) values ('1','admin@helpdesk.com','$2a$10$qUU8yaDD4.JGTXzDj.G1Z.c8Gb0KYfXA4Qk/SixA.PnAE1GVrykhu','0');
-Insert into C##MCM.USUARIO (ID,EMAIL,PASSWORD,PERFIL) values ('2','custumer@helpdesk.com','$2a$10$8lAC1uDRhLci6tSl7W9MDOkEC.peDrDsD.ImnHidx7KrFPepHakn6','1');
+Insert into C##MCM.USUARIO (ID,EMAIL,PASSWORD,PERFIL) values ('1','admin@helpdesk.com','$2a$10$qUU8yaDD4.JGTXzDj.G1Z.c8Gb0KYfXA4Qk/SixA.PnAE1GVrykhu','ROLE_ADMIN');
+Insert into C##MCM.USUARIO (ID,EMAIL,PASSWORD,PERFIL) values ('2','custumer@helpdesk.com','$2a$10$8lAC1uDRhLci6tSl7W9MDOkEC.peDrDsD.ImnHidx7KrFPepHakn6','ROLE_CUSTUMER');
 --------------------------------------------------------
 --  DDL for Index COLOR_PK
 --------------------------------------------------------

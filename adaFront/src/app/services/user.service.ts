@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../model/user.model';
 import { URL_API } from './url.api';
-import { SharedService } from './shared.service';
 import { HttpRespPdfReqJsonService } from './http-resp-pdf-req-json.service';
 
 @Injectable({
@@ -29,7 +28,7 @@ export class UserService {
   }
 
   getUser() {
-    return this.http.get(`${URL_API}/api/getuser/${SharedService.getInstance().token}`);
+    return this.http.get(`${URL_API}/api/token`);
   }
 
   print(data: any) {

@@ -3,7 +3,6 @@ package br.com.adaApi.api.security.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -73,8 +72,9 @@ public class AuthenticationRestController {
 		}
 	}
 	
-	@GetMapping(value="/api/getuser/{token}")
-	public ResponseEntity<?> getuserByToken(@PathVariable("token") String token){
+	@GetMapping(value="/api/token")
+	public ResponseEntity<?> getuserByToken(HttpServletRequest request){
+		String token = request.getHeader("Authorization");
 		String username = jwtTokenUtil.getUsernameFromToken(token);
 		final User user = userService.findByEmail(username);
 		
