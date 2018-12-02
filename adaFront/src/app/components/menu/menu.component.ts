@@ -31,21 +31,22 @@ export class MenuComponent implements OnInit {
 
         if (this.shared.user.profile === 'ADMIN') {
             this.items.push({
+                styleClass: 'usermenu',
                 label: 'User',
                 icon: 'pi pi-pw pi-users',
                 items: [
-                    {label: 'Usuário', routerLink: ['/user'], icon: 'pi pi-fw pi-circle-off'}
+                    {id: 'useritem', label: 'Usuário', routerLink: ['/user'], icon: 'pi pi-fw pi-circle-off'}
                 ]
             });
         }
         // tslint:disable-next-line:max-line-length
         if (this.shared.user.profile === 'ADMIN' || this.shared.user.profile === 'CUSTUMER' || this.shared.user.profile === 'TECHNICIAN') {
             this.items.push({
+                styleClass: 'carmenu',
                 label: 'Cadastro',
                 icon: 'pi pi-fw pi-folder-open',
-                routerLink: null,
                 items: [
-                    {label: 'Car', routerLink: ['/car'], icon: 'pi pi-fw pi-circle-off'}
+                    {id: 'cadcaritem', label: 'Car', routerLink: ['/car'], icon: 'pi pi-fw pi-circle-off'}
                 ]
             });
         }
