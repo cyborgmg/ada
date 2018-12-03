@@ -18,7 +18,7 @@
             <p-blockUI [target]="ptable" [blocked]="blockedPtable">
             </p-blockUI>
 
-            <p-table #ptable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="copy()" 
+            <p-table #ptable id="ptable" [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="copy()" 
               dataKey="id" [scrollable]="true" scrollHeight="100px" (onRowUnselect)="onRowUnselect($event)">
               <ng-template pTemplate="header">
                     <tr>
@@ -119,7 +119,7 @@
                     id="inputcolor" 
                     name="color"
                     [(ngModel)]="selectedCar.color"
-                    #color="ngModel" 
+                    #color="ngModel"saleDate 
                     [style]="{'width':'100%'}"
                     (onChange)="navigate()"
                 ></p-dropdown>
@@ -174,6 +174,8 @@
       <div class="box-footer">
 
         <app-button-confirm 
+                btnid="btnsave"
+                dlgid="dlgsave"
                 label="Save" 
                 class="ui-button-rounded pull-right" 
                 [disabled]="!btnSalvar" 
@@ -185,6 +187,8 @@
         <span class="pull-right">&nbsp;</span>
 
         <app-button-confirm 
+                btnid="btncancel"
+                dlgid="dlgcancel"
                 label="Cancel" 
                 class="ui-button-rounded pull-right" 
                 [disabled]="!btnCancelar" 
@@ -196,6 +200,8 @@
         <span class="pull-right">&nbsp;</span>
 
         <app-button-confirm 
+                btnid="btnnew"
+                dlgid="dlgnew"
                 label="New" 
                 class="ui-button-rounded pull-right" 
                 [disabled]="!btnNovo" 
@@ -207,6 +213,8 @@
         <span class="pull-right">&nbsp;</span>
 
         <app-button-confirm 
+                btnid="btndelete"
+                dlgid="dlgdelete"
                 label="Delete" 
                 class="ui-button-rounded pull-right" 
                 [disabled]="!btnDeletar" 
@@ -215,9 +223,9 @@
                 (confiormClick)="deleteCar()"
                 ></app-button-confirm>
         
-        <button pButton type="button" label="Find" (click)="findCarParams()" class="ui-button-rounded pull-left" ></button> 
-        <button pButton type="button" label="Clear" (click)="clear()" class="ui-button-rounded pull-left" ></button>
-        <button pButton type="button" label="Print" (click)="printCars()" [disabled]="!btnPrint" class="ui-button-rounded pull-left" ></button>  
+        <button pButton type="button" label="Find"  id="btnfind"  (click)="findCarParams()" class="ui-button-rounded pull-left" ></button> 
+        <button pButton type="button" label="Clear" id="btnclean" (click)="clear()" class="ui-button-rounded pull-left" ></button>
+        <button pButton type="button" label="Print" id="btnprint" (click)="printCars()" [disabled]="!btnPrint" class="ui-button-rounded pull-left" ></button>  
          
       </div>
     </form>

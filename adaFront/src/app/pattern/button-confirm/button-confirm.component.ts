@@ -8,6 +8,8 @@ import { EventEmitter } from '@angular/core';
 })
 export class ButtonConfirmComponent implements OnInit {
 
+  @Input() btnid: string;
+  @Input() dlgid: string;
   @Input() label: string;
   @Input() class: string;
   @Input() message: string;

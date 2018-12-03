@@ -6,4 +6,8 @@ export class Base {
         return browser.wait( ec.visibilityOf( el ) );
     }
 
+    sleep(ms: number): void {
+        browser.sleep(ms);
+    }
+
 }

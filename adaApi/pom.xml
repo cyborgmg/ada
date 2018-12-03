@@ -34,7 +34,7 @@
 		<dependency>
 		    <groupId>org.codehaus.groovy</groupId>
 		    <artifactId>groovy-all</artifactId>
-		    <version>2.4.7</version>
+		    <!-- <version>2.4.7</version> -->
 		</dependency>
         <dependency>
             <groupId>com.jayway.restassured</groupId>
@@ -84,7 +84,34 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- PROFILE -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 	</dependencies>
+	
+	<profiles>
+	    <profile>
+	        <id>prod</id>
+	        <activation>
+			    <activeByDefault>true</activeByDefault>
+			</activation>
+	        <properties>
+	            <spring.datasource.url>jdbc:oracle:thin:@192.168.0.112:1521:DB11G</spring.datasource.url>
+	            <spring.datasource.username>C##MCM</spring.datasource.username>
+	            <spring.datasource.password>c6b94gmg</spring.datasource.password>
+	        </properties>
+	    </profile>
+	    <profile>
+	        <id>test</id>
+	        <properties>
+	            <spring.datasource.url>jdbc:oracle:thin:@192.168.0.112:1521:DB11G</spring.datasource.url>
+	            <spring.datasource.username>C##MCM_TEST</spring.datasource.username>
+	            <spring.datasource.password>c6b94gmg</spring.datasource.password>
+	        </properties>
+	    </profile>
+	</profiles>	
 
 	<build>
 		<plugins>
@@ -98,6 +125,21 @@
 	            <artifactId>maven-surefire-plugin</artifactId>
 	            <configuration>
 	                <useSystemClassLoader>false</useSystemClassLoader>
+	            </configuration>
+	        </plugin>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-resources-plugin</artifactId>
+	            <configuration>
+	                <delimiters>
+	                    <delimiter>@</delimiter>
+	                </delimiters>
+	                <resources>
+	                    <resource>
+	                        <directory>src/main/resources</directory>
+	                        <filtering>true</filtering>
+	                    </resource>
+	                </resources>
 	            </configuration>
 	        </plugin>
 <!-- 			

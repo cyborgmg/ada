@@ -6,18 +6,26 @@ describe('Login', () => {
   beforeEach(() => {
     page = new LoginPo();
   });
+
   it('espera que sistema esteja logado', () => {
 
-      page.navigate();
-      page.setEmail('admin@helpdesk.com');
-      page.setPassword('123456');
+      page.navigate().then(() => {
 
-      page.login().then(() => {
-          page.wait();
-          expect( page.getEmailProfile() ).toContain('admin@helpdesk.com');
-          // .not.toBeNull();
+        page.waitVisibilityOf(page.getEmail()).then(() => {
+
+          page.setEmail('admin@helpdesk.com');
+          page.setPassword('123456');
+
+          page.login().then(() => {
+              page.waitVisibilityOf(page.getEmailProfile()).then(() => {
+                expect( page.getEmailProfile().getText() ).toContain('admin@helpdesk.com');
+              });
+          });
+
+        });
+
       });
 
-
   });
+
 });

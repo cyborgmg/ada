@@ -1,9 +1,9 @@
 spring.profiles.active=production
 #spring.jpa.hibernate.ddl-auto=create-drop
 # Oracle settings
-spring.datasource.url=@spring.datasource.url@
-spring.datasource.username=@spring.datasource.username@
-spring.datasource.password=@spring.datasource.password@
+spring.datasource.url=jdbc:oracle:thin:@192.168.0.112:1521:DB11G
+spring.datasource.username=C##MCM
+spring.datasource.password=c6b94gmg
 spring.datasource.driver.class=oracle.jdbc.driver.OracleDriver
 # logging
 logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n
