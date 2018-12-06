@@ -13,7 +13,6 @@ import { UserService } from './services/user.service';
 import { SharedService } from './services/shared.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { DialogService } from './services/dialog.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TableModule } from 'primeng/table';
 import { CarComponent } from './components/car/car.component';
@@ -33,6 +32,7 @@ import { StatusLabelPipe } from './pipes/status-label.pipe';
 import { CadastroUsuarioComponent } from './components/cadastro-usuario/cadastro-usuario.component';
 import {BlockUIModule} from 'primeng/blockui';
 import { ProfileLabelPipe } from './pipes/profile-label.pipe';
+import { ListsService } from './services/lists.service';
 
 registerLocaleData(localePtBr);
 
@@ -72,7 +72,7 @@ registerLocaleData(localePtBr);
     UserService,
     SharedService,
     AuthGuard,
-    DialogService,
+    ListsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

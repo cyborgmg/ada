@@ -31,6 +31,10 @@ export class Car extends Base {
         return element(by.id('btndelete'));
     }
 
+    getBtnDeleteDlgOk(): ElementFinder {
+        return element(by.css('p-dialog[id="dlgdelete"] button[id="btnok"]'));
+    }
+
     getBtnNew(): ElementFinder {
         return element(by.id('btnnew'));
     }
@@ -45,6 +49,10 @@ export class Car extends Base {
 
     getBtnSave(): ElementFinder {
         return element(by.id('btnsave'));
+    }
+
+    getBtnSaveDlgOk(): ElementFinder {
+        return element(by.css('p-dialog[id="dlgsave"] button[id="btnok"]'));
     }
 
     getInputId(): ElementFinder {

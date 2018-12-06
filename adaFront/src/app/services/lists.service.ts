@@ -25,14 +25,14 @@ export class ListsService {
     {label: 'TECHNICIAN', value: 'ROLE_TECHNICIAN'}
   ];
 
-  constructor(private colorService: ColorService ) {
-
-      this.colorService.findAllDropDown().subscribe((responseApi: ResponseApi) => {
-        this.colors = responseApi['data'];
-      }, err => {
-        console.log(err['error']['errors'][0]);
-      });
-
+  constructor(private colorService: ColorService) {
+      if (colorService != null) {
+        this.colorService.findAllDropDown().subscribe((responseApi: ResponseApi) => {
+          this.colors = responseApi['data'];
+        }, err => {
+          console.log(err['error']['errors'][0]);
+        });
+      }
    }
 
 }

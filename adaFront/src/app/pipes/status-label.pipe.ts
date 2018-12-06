@@ -6,7 +6,7 @@ import { ListsService } from '../services/lists.service';
 })
 export class StatusLabelPipe implements PipeTransform {
 
-  constructor(private listsService: ListsService) { }
+  constructor(private listsService: ListsService) {}
 
   transform(value: string): string {
 
@@ -22,4 +22,5 @@ export class StatusLabelPipe implements PipeTransform {
 
     return result;
   }
+
 }

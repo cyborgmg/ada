@@ -10,4 +10,8 @@ export class Base {
         browser.sleep(ms);
     }
 
+    waitForAngular(): void {
+        browser.waitForAngular();
+    }
+
 }
