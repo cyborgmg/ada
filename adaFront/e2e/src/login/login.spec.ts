@@ -9,6 +9,8 @@ describe('Login', () => {
 
   it('espera que sistema esteja logado', () => {
 
+      page.maximize();
+
       page.navigate().then(() => {
 
         page.waitVisibilityOf(page.getEmail()).then(() => {

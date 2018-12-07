@@ -14,4 +14,8 @@ export class Base {
         browser.waitForAngular();
     }
 
+    maximize() {
+        browser.driver.manage().window().maximize();
+    }
+
 }
