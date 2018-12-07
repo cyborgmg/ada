@@ -3,51 +3,53 @@ import { Car } from '../model/car';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { ResponseApi } from '../model/response-api';
+import { Utils } from '../utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarMokService {
 
-  private resp: ResponseApi = new ResponseApi();
+  private cars: Array<Car> = new Array<Car>();
 
   constructor() {
-    this.resp.data = new Array<Car>();
-    this.resp.errors = new Array<string>();
+    this.cars = new Array<Car>();
    }
 
   findCarParams(car: Car): Observable<Object> {
-    return of(this.resp);
+
+    if (( car.brand == null ) && ( car.status == null ) && ( car.year == null ) &&
+    ( car.color == null ) && ( car.price == null ) && ( car.saleDate == null )) {
+
+      return of( new ResponseApi( this.cars , []) );
+
+    } else {
+
+      return of( new ResponseApi( new Array<Car>() , []) );
+
+    }
   }
 
   saveCar(car: Car): Observable<Object> {
 
-    const data: Array<Car> = this.resp.data;
-    data.push(car);
-    this.resp.data = data;
+    const carclone: Car = Utils.clone(car);
+    carclone.id = Math.round((Math.random() * 10000));
+    this.cars.push( Utils.clone(carclone) );
 
-    const respApi: ResponseApi = new ResponseApi();
-    respApi.data = car;
-    respApi.errors = new Array<string>();
-
-    return of(respApi);
+    return of( new ResponseApi(carclone, []) );
   }
 
   deleteCar(id: number): Observable<Object> {
 
-    const data: Array<Car> = this.resp.data;
-
     let idx = 0;
-    data.forEach(element => {
+    this.cars.forEach(element => {
       if (element.id === id) {
-        data.splice(idx, 1);
+        this.cars.splice(idx, 1);
       }
       idx++;
     });
 
-    this.resp.data = data;
-
-    return of(this.resp);
+    return of(null);
   }
 
   printCars(data: any): Observable<Object> {

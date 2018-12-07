@@ -1,4 +1,7 @@
 export class ResponseApi {
-    public data: any;
-    public errors: Array<string>;
+
+    constructor(
+        public data: any = null,
+        public errors: Array<string>  = null
+    ) {}
 }
