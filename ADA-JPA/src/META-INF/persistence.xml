@@ -3,6 +3,16 @@
 	<persistence-unit name="ADA-JPA">
 		<class>br.com.adaApi.api.entity.Car</class>
 		<class>br.com.adaApi.api.entity.Color</class>
-		<class>br.com.adaApi.api.entity.User</class>
+		<class>br.com.adaApi.api.entity.Part</class>
+		
+		<properties>
+			<property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver" />
+			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@192.168.0.112:1521:DB11G" />
+			<property name="hibernate.connection.username" value="C##MCM" />
+			<property name="hibernate.connection.password" value="c6b94gmg" />
+			<property name="hibernate.hbm2ddl.auto" value="none" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect" />
+		</properties>
 	</persistence-unit>
 </persistence>

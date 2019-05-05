@@ -99,7 +99,7 @@
 			</activation>
 	        <properties>
 	            <spring.datasource.url>jdbc:oracle:thin:@192.168.0.112:1521:DB11G</spring.datasource.url>
-	            <spring.datasource.username>C##MCM</spring.datasource.username>
+	            <spring.datasource.username>C##MCM2</spring.datasource.username>
 	            <spring.datasource.password>c6b94gmg</spring.datasource.password>
 	        </properties>
 	    </profile>

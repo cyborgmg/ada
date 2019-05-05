@@ -15,7 +15,7 @@ export class ButtonConfirmComponent implements OnInit {
   @Input() message: string;
   @Input() title: string;
   @Input() disabled: boolean;
-  @Output() confiormClick = new EventEmitter();
+  @Output() confiormClick: EventEmitter<{}> = new EventEmitter();
 
 
   // tslint:disable-next-line:no-inferrable-types

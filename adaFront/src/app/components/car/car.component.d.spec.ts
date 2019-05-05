@@ -73,15 +73,7 @@ describe('CarComponent', () => {
   function camposVazios(novo: boolean) {
 
     describe('campos', () => {
-      /*
-      it(`id ${novo ? '' : 'not '}null`, () => {
-        if (novo) {
-          expect(component.selectedCar.id).toBeNull();
-        } else {
-          expect(component.selectedCar.id).not.toBeNull();
-        }
-      });
-      */
+
      it(`id null`, () => {
         expect(component.selectedCar.id).toBeNull();
       });

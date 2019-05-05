@@ -17,37 +17,34 @@ import javax.validation.constraints.NotBlank;
 
 import br.com.adaApi.api.enums.ProfileEnum;
 
-
 /**
  * The persistent class for the "USER" database table.
  * 
  */
 @Entity
-@Table(name="USUARIO")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name = "USUARIO")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="USER_ID_GENERATOR", sequenceName="USER_SQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USER_ID_GENERATOR")
+	@SequenceGenerator(name = "USER_ID_GENERATOR", sequenceName = "USER_SQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ID_GENERATOR")
 	private Long id;
 
-	@Column(unique=true)
-	@NotBlank(message="Email requerido")
-	@Email(message="Email inválido")
+	@Column(unique = true)
+	@NotBlank(message = "Email requerido")
+	@Email(message = "Email inválido")
 	private String email;
 
 	private String password;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="PERFIL")
+	@Column(name = "PERFIL")
 	private ProfileEnum profile;
 
 	public User() {
 	}
-	
-	
 
 	public User(@NotBlank(message = "Email requerido") @Email(message = "Email inválido") String email, String password, ProfileEnum profile) {
 		super();
@@ -55,8 +52,6 @@ public class User implements Serializable {
 		this.password = password;
 		this.profile = profile;
 	}
-
-
 
 	public Long getId() {
 		return this.id;
