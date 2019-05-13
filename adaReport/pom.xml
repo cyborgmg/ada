@@ -1,53 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>br.com.adaApi</groupId>
   <artifactId>adaReport</artifactId>
-  <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-
+  
   <dependencies>
- <dependency>
-      <groupId>com.dragome</groupId>
-      <artifactId>dragome-sdk</artifactId>
-      <version>0.96-beta2</version>
-      <type>pom</type>
-    </dependency>
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-web-api</artifactId>
-      <version>6.0</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-	    <groupId>javax.validation</groupId>
-	    <artifactId>validation-api</artifactId>
-	    <version>2.0.1.Final</version>
-	</dependency>
-
+	 	<dependency>
+	      <groupId>com.dragome</groupId>
+	      <artifactId>dragome-sdk</artifactId>
+	      <version>0.96-beta2</version>
+	      <type>pom</type>
+	    </dependency>
+	    <dependency>
+	      <groupId>javax</groupId>
+	      <artifactId>javaee-web-api</artifactId>
+	      <version>6.0</version>
+	      <scope>provided</scope>
+	    </dependency>
+	    <dependency>
+		    <groupId>javax.validation</groupId>
+		    <artifactId>validation-api</artifactId>
+		    <version>2.0.1.Final</version>
+		</dependency>
   </dependencies>
-
-
-  <build>
-    <sourceDirectory>src</sourceDirectory>
-    <resources>
-      <resource>
-        <directory>src</directory>
-        <excludes>
-          <exclude>**/*.java</exclude>
-        </excludes>
-      </resource>
-    </resources>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
+  
 </project>

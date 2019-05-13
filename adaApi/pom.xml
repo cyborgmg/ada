@@ -98,16 +98,16 @@
 			    <activeByDefault>true</activeByDefault>
 			</activation>
 	        <properties>
-	            <spring.datasource.url>jdbc:oracle:thin:@192.168.0.112:1521:DB11G</spring.datasource.url>
-	            <spring.datasource.username>C##MCM2</spring.datasource.username>
+	            <spring.datasource.url>jdbc:oracle:thin:@localhost:1521:XE</spring.datasource.url>
+	            <spring.datasource.username>C##MCM</spring.datasource.username>
 	            <spring.datasource.password>c6b94gmg</spring.datasource.password>
 	        </properties>
 	    </profile>
 	    <profile>
 	        <id>test</id>
 	        <properties>
-	            <spring.datasource.url>jdbc:oracle:thin:@192.168.0.112:1521:DB11G</spring.datasource.url>
-	            <spring.datasource.username>C##MCM_TEST</spring.datasource.username>
+	            <spring.datasource.url>jdbc:oracle:thin:@localhost:1521:XE</spring.datasource.url>
+	            <spring.datasource.username>C##MCM</spring.datasource.username>
 	            <spring.datasource.password>c6b94gmg</spring.datasource.password>
 	        </properties>
 	    </profile>
@@ -142,6 +142,7 @@
 	                </resources>
 	            </configuration>
 	        </plugin>
+	        
 <!-- 			
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>

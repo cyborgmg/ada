@@ -118,7 +118,7 @@ public class CarController {
 	@PreAuthorize("hasAnyRole('ADMIN','CUSTUMER','TECHNICIAN')")
 	public ResponseEntity<byte[]> printAll(HttpServletRequest request, @RequestBody List<Car> cars, BindingResult result) throws JRException, IOException {
 		
-		return ResponseEntity.ok(reportCar.print("reports/carreport.jasper", new HashMap<>(), cars));
+		return ResponseEntity.ok(reportCar.print("reports/carreport.jrxml", new HashMap<>(), cars));
 		
 	}
 	

@@ -129,7 +129,7 @@ public class UserController {
 		//Ordenando por profile
 		users = users.stream().sorted(Comparator.comparing(User::getProfile)).collect(Collectors.toList());
 		
-		return ResponseEntity.ok(reportUser.print("reports/reportUsers.jasper", new HashMap<>(), users));
+		return ResponseEntity.ok(reportUser.print("reports/reportUsers.jrxml", new HashMap<>(), users));
 		
 	}	
 }

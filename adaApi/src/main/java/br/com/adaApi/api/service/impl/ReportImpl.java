@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 
 import br.com.adaApi.api.service.Report;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.util.JRLoader;
 
 @Service
 public class ReportImpl<T> implements Report<T>{
@@ -28,11 +28,12 @@ public class ReportImpl<T> implements Report<T>{
 	@Override
 	public byte[] print(String relat, Map<String, Object> params, List<T> lst) throws IOException, JRException{
 		
+		
 		Resource resource = context.getResource("classpath:"+relat);
 		
 		InputStream inputStream = resource.getInputStream();
 		
-		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(inputStream);
+		JasperReport jasperReport = JasperCompileManager.compileReport( inputStream );
 		  
 		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource( lst );
 		
@@ -41,5 +42,4 @@ public class ReportImpl<T> implements Report<T>{
 	return JasperExportManager.exportReportToPdf(print);	
 	}
 	
-
 }
