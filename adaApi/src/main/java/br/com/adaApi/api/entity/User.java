@@ -1,6 +1,7 @@
 package br.com.adaApi.api.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -39,10 +41,15 @@ public class User implements Serializable {
 
 	private String password;
 
+	/*
 	@Enumerated(EnumType.STRING)
 	@Column(name = "PERFIL")
 	private ProfileEnum profile;
-
+	*/
+	
+	@ManyToMany(mappedBy="usuarios")
+	private List<Perfil> perfils;
+	
 	public User() {
 	}
 
@@ -77,12 +84,12 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public ProfileEnum getProfile() {
-		return this.profile;
+	public List<Perfil> getPerfils() {
+		return this.perfils;
 	}
 
-	public void setProfile(ProfileEnum profile) {
-		this.profile = profile;
+	public void setPerfils(List<Perfil> perfils) {
+		this.perfils = perfils;
 	}
 
 }
