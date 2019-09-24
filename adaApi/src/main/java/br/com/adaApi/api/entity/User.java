@@ -41,15 +41,16 @@ public class User implements Serializable {
 
 	private String password;
 
-	/*
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "PERFIL")
 	private ProfileEnum profile;
-	*/
 	
+	
+	/*
 	@ManyToMany(mappedBy="usuarios")
 	private List<Perfil> perfils;
-	
+	*/
 	public User() {
 	}
 
@@ -84,6 +85,16 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public ProfileEnum getProfile() {
+		return profile;
+	}
+
+	public void setProfile(ProfileEnum profile) {
+		this.profile = profile;
+	}
+	
+	
+/*
 	public List<Perfil> getPerfils() {
 		return this.perfils;
 	}
@@ -91,5 +102,5 @@ public class User implements Serializable {
 	public void setPerfils(List<Perfil> perfils) {
 		this.perfils = perfils;
 	}
-
+*/
 }
