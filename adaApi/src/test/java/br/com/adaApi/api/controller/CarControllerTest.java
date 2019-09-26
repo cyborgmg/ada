@@ -93,6 +93,8 @@ public class CarControllerTest {
 	@WithMockUser(roles = "ADMIN")
 	public void testFindCarParams() throws Exception {
 		
+		carRepository.deleteAll();
+		
 		Response<List<Car>> response = new Response<List<Car>>();
 		response.setData( Arrays.asList(carRepository.save(this.car)));
 		
@@ -114,9 +116,7 @@ public class CarControllerTest {
 		Response<List<Car>> response = new Response<List<Car>>();
 		response.setData( Arrays.asList(carRepository.save(this.car)));
 		
-		this.mvc.perform(
-				get("/api/car")
-				)
+		this.mvc.perform(get("/api/car"))
 		.andExpect(status().isOk())
 		.andExpect( content().json( (new ObjectMapper()).writeValueAsString(response) ) )
 		.andExpect(jsonPath("$.data", hasSize(equalTo(1))));
