@@ -9,3 +9,8 @@ services:
       - 8181:8080
     volumes:
       - ./docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d
+  redis:
+    image: redis
+    command: redis-server --requirepass Redis2019!
+    ports:
+      - 6379:6379
