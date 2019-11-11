@@ -5,6 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.session.web.http.CookieHttpSessionIdResolver;
+import org.springframework.session.web.http.DefaultCookieSerializer;
+import org.springframework.session.web.http.HttpSessionIdResolver;
 
 import br.com.adaApi.api.entity.User;
 import br.com.adaApi.api.enums.ProfileEnum;

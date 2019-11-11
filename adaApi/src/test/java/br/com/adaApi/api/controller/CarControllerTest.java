@@ -113,6 +113,8 @@ public class CarControllerTest {
 	@WithMockUser(roles = "ADMIN")
 	public void testFindAll() throws Exception {
 		
+		carRepository.deleteAll();
+		
 		Response<List<Car>> response = new Response<List<Car>>();
 		response.setData( Arrays.asList(carRepository.save(this.car)));
 		
