@@ -5,13 +5,11 @@
  */
 package br.com.adaApi.api.security.service;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import javax.annotation.PostConstruct;
 
-import groovy.util.logging.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import redis.clients.jedis.Jedis;
 
 /**
@@ -34,12 +32,14 @@ public class RedisService {
 	private String pass;
 
 	private Jedis jedis;
+	
+	@PostConstruct
+	public void init() {
+		jedis = new Jedis(host,port); 
+		jedis.auth(pass);
+	}
 
 	public Jedis getJedis() {
-		if(jedis==null) {
-			jedis = new Jedis(host,port); 
-			jedis.auth(pass);
-		}
 		return jedis;
 	}
 
