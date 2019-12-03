@@ -1,14 +1,25 @@
 package br.com.adaApi.api.security.jwt;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+
+import br.com.adaApi.api.security.service.RedisService;
+import br.com.adaApi.api.utils.Utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,13 +31,17 @@ public class JwtTokenUtil implements Serializable{
 	
 	static final String CLAIM_KEY_USERNAME = "sub";
 	static final String CLAIM_KEY_CREATED = "created";
-	static final String CLAIM_KEY_EXPIRED = "exp";
+	//static final String CLAIM_KEY_EXPIRED = "exp";
+	static final String CLAIM_KEY_EXPIRA = "expi";
 	
 	@Value("${jwt.secret}")
 	private String secret;
 	
 	@Value("${jwt.expiration}")
 	private Long expiration;
+	
+	@Autowired
+	private RedisService redisService;
 	
 	public String getUsernameFromToken(String token) {
 		String username;
@@ -54,13 +69,25 @@ public class JwtTokenUtil implements Serializable{
 		Claims claims;
 		
 		try {
+			
+			
+			Map<String, Object>  claimsRedis = Utils.deserializeJson(redisService.getJedis().get(token),HashMap.class);
+			
+			String sub = (String) claimsRedis.get(CLAIM_KEY_USERNAME);
+			Long exp = (Long) claimsRedis.get(CLAIM_KEY_EXPIRA);
+			
 			claims = Jwts.parser()
 					 .setSigningKey(secret)
 					 .parseClaimsJws(token)
-					 .getBody();
+					 .getBody()
+					 .setSubject(sub)
+					 .setExpiration( new Date( exp ) );
+			
 		} catch (Exception e) {
 			claims = null;
+			e.printStackTrace();
 		}
+		
 		
 		return claims;
 	}
@@ -78,19 +105,30 @@ public class JwtTokenUtil implements Serializable{
 		
 		claims.put(CLAIM_KEY_CREATED, new Date());
 		
+		Calendar expirationDate = Calendar.getInstance(); 
+		expirationDate.add(Calendar.DAY_OF_MONTH, expiration.intValue());
+		claims.put(CLAIM_KEY_EXPIRA, expirationDate.getTime());
+		
 		return doGenerateToken(claims);
 		
 	}
 
 	private String doGenerateToken(Map<String, Object> claims) {
 		
-		final Date createdDate = (Date) claims.get(CLAIM_KEY_CREATED);
-		final Date expirationDate = new Date( createdDate.getTime()+ expiration * 1000 );
-		return Jwts.builder()
+		String token = Jwts.builder()
 				   .setClaims(claims)
-				   .setExpiration(expirationDate)
+				   .setExpiration((Date) claims.get(CLAIM_KEY_EXPIRA))
 				   .signWith(SignatureAlgorithm.HS512, secret)
 				   .compact();
+		
+		try {
+			redisService.getJedis().set(token,  Utils.serializeToJson(claims) );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+		
+		return token;
 	}
 	
 	public Boolean canTokenBeRefreshed(String token) {

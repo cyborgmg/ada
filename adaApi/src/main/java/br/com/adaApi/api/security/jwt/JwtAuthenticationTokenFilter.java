@@ -15,6 +15,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+
+import br.com.adaApi.api.security.service.RedisService;
+
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	
 	@Autowired
@@ -22,13 +27,17 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
+	
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
 		String authToken = request.getHeader("Authorization");
+		
 		String username = jwtTokenUtil.getUsernameFromToken(authToken);
+		
+		//String username = redisService.getJedis().get(authToken);
 		
 		if( username != null && SecurityContextHolder.getContext().getAuthentication() == null ) {
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);

@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+
 import br.com.adaApi.api.entity.User;
 import br.com.adaApi.api.security.jwt.JwtAuthenticationRequest;
 import br.com.adaApi.api.security.jwt.JwtTokenUtil;
 import br.com.adaApi.api.security.model.CurrentUser;
+import br.com.adaApi.api.security.service.RedisService;
 import br.com.adaApi.api.service.UserService;
 
 @RestController
@@ -39,6 +42,7 @@ public class AuthenticationRestController {
 	@Autowired
 	private UserService userService;
 	
+	
 	@PostMapping(value="/api/auth")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws Exception{
 		
@@ -52,6 +56,9 @@ public class AuthenticationRestController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
 		final String token = jwtTokenUtil.generateToken(userDetails);
+		
+		//redisService.getJedis().set(token, userDetails.getUsername());
+		
 		final User user = userService.findByEmail(authenticationRequest.getEmail());
 		user.setPassword(null);
 		
